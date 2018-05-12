@@ -38,7 +38,6 @@ class CategoryAdapter() :BaseAdapter<Category, InflaterCategoryBinding>(R.layout
 ``` kotlin
 override fun onCreatingHolder(binding: InflaterCategoryBinding, baseHolder: BaseHolder) {
         super.onCreatingHolder(binding, baseHolder)
-        binding.cbCategory.setVisible(showSelection)
         binding.root.setOnClickListener(baseHolder.clickListener)
     }
 ```
@@ -47,12 +46,7 @@ override fun onCreatingHolder(binding: InflaterCategoryBinding, baseHolder: Base
 
 ``` kotlin
 adapter.setRecyclerViewItemClick { itemView, model ->
-            if (getSelectedCategoryCSV().size == 5 && !model.isSelected) {
-                getString(R.string.msg_max_cat_sel).showToast()
-            } else {
-                model.isSelected = !model.isSelected
-                adapter.notifyItemChanged(adapter.data.indexOf(model))
-            }
+            //Perform Operation here
         }
 
 ```

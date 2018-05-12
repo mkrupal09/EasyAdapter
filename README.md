@@ -1,5 +1,8 @@
 # EasyAdapter
 
+
+(Supports only with DataBinding)
+
 It Removes Boilerplate code of creating adapter
 
 Features
@@ -17,7 +20,7 @@ Usage
 ## Adapter Creation
 
 ``` kotlin
-class CategoryAdapter() :BaseAdapter<Category, InflaterCategoryBinding>(R.layout.inflater_category) {
+class CategoryAdapter() :EasyAdapter<Category, InflaterCategoryBinding>(R.layout.inflater_category) {
 
     override fun onBind(binding: InflaterCategoryBinding, model: Category) {
         binding.apply {
@@ -50,7 +53,7 @@ adapter.setRecyclerViewItemClick { itemView, model -> //Perform Operation here }
 
 #### Filter (Search,etc..)
 ``` kotlin
-adapter.performFilter(text, object :BaseAdapter.OnFilter<Category>{
+adapter.performFilter(text, object :EasyAdapter.OnFilter<Category>{
                     override fun onFilterApply(text: String, model: Category): Boolean {
                         if (model.name?.toLowerCase()?.contains(text.toLowerCase())!!) {
                             return true //Return True if you want to include this model in this text search
@@ -67,7 +70,7 @@ adapter.performFilter(text, object :BaseAdapter.OnFilter<Category>{
 
 #### Load More
 ``` kotlin
-adapter.enableLoadMore(binding.recyclerView, BaseAdapter.OnLoadMoreListener {
+adapter.enableLoadMore(binding.recyclerView, EasyAdapter.OnLoadMoreListener {
             if (paging != -1) {
                 requestLoadMore() //Your Method
                 return@OnLoadMoreListener true // Returns True if you have more data

@@ -32,8 +32,8 @@ class CategoryAdapter() :BaseAdapter<Category, InflaterCategoryBinding>(R.layout
 
 ## View usage
 
-#### Handle click events of recycler view item
-#### override this method and set OnClickListener to baseHolder.clickListener
+#### To Handle View events of recycler view item override method and set View events 
+#### i.e To set OnClickListener to View use baseHolder.clickListener
 
 ``` kotlin
 override fun onCreatingHolder(binding: InflaterCategoryBinding, baseHolder: BaseHolder) {

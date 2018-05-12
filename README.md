@@ -19,12 +19,6 @@ Usage
 ``` kotlin
 class CategoryAdapter() :BaseAdapter<Category, InflaterCategoryBinding>(R.layout.inflater_category) {
 
-    override fun onCreatingHolder(binding: InflaterCategoryBinding, baseHolder: BaseHolder) {
-        super.onCreatingHolder(binding, baseHolder)
-        binding.cbCategory.setVisible(showSelection)
-        binding.root.setOnClickListener(baseHolder.clickListener)
-    }
-
     override fun onBind(binding: InflaterCategoryBinding, model: Category) {
         binding.apply {
             tvName.text = model.name

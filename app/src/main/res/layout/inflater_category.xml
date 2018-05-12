@@ -2,7 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-
     <LinearLayout
         android:id="@+id/llCategory"
         android:layout_width="match_parent"
@@ -23,12 +22,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="10dp"
-            android:text="Category"
+            tools:text="@tools:sample/cities"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
-
-
     </LinearLayout>
-
-
 </layout>

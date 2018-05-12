@@ -1,7 +1,5 @@
-package com.tapatrade.adapter
+package easyadapter.dc.com.easyadapter
 
-import easyadapter.dc.com.easyadapter.Category
-import easyadapter.dc.com.easyadapter.R
 import easyadapter.dc.com.easyadapter.databinding.InflaterCategoryBinding
 import easyadapter.dc.com.library.EasyAdapter
 
@@ -13,6 +11,8 @@ class CategoryAdapter() :
 
     override fun onCreatingHolder(binding: InflaterCategoryBinding, baseHolder: BaseHolder) {
         super.onCreatingHolder(binding, baseHolder)
+
+
         binding.root.setOnClickListener(baseHolder.clickListener)
     }
 

@@ -7,7 +7,7 @@ import java.io.Serializable
  */
 
 
-class Category : Serializable {
+public class Category : Serializable {
 
 
     var name: String? = ""

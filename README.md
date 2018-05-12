@@ -16,6 +16,7 @@ Usage
 
 ## Adapter Creation
 
+``` kotlin
 class CategoryAdapter(categories: ArrayList<Category>, private val showSelection: Boolean = false) :
         BaseAdapter<Category, InflaterCategoryBinding>(categories, R.layout.inflater_category) {
 

@@ -17,8 +17,7 @@ Usage
 ## Adapter Creation
 
 ``` kotlin
-class CategoryAdapter(categories: ArrayList<Category>, private val showSelection: Boolean = false) :
-        BaseAdapter<Category, InflaterCategoryBinding>(categories, R.layout.inflater_category) {
+class CategoryAdapter() :BaseAdapter<Category, InflaterCategoryBinding>(R.layout.inflater_category) {
 
     override fun onCreatingHolder(binding: InflaterCategoryBinding, baseHolder: BaseHolder) {
         super.onCreatingHolder(binding, baseHolder)
@@ -65,7 +64,7 @@ adapter.setRecyclerViewItemClick { itemView, model ->
 ```
 
 ### Filter (Search,etc..)
-
+``` kotlin
 adapter.performFilter(text, object :BaseAdapter.OnFilter<Category>{
                     override fun onFilterApply(text: String, model: Category): Boolean {
                         if (model.name?.toLowerCase()?.contains(text.toLowerCase())!!) {
@@ -79,6 +78,7 @@ adapter.performFilter(text, object :BaseAdapter.OnFilter<Category>{
                     }
                 })
 
+```
 
 ### Load More
 ``` kotlin

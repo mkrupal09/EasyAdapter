@@ -35,20 +35,24 @@ class CategoryAdapter(categories: ArrayList<Category>, private val showSelection
         }
     }
 }
+```
 
 ## View usage
 
 ### Handle click events of recycler view item
 ### override this method and set OnClickListener to baseHolder.clickListener
 
+``` kotlin
 override fun onCreatingHolder(binding: InflaterCategoryBinding, baseHolder: BaseHolder) {
         super.onCreatingHolder(binding, baseHolder)
         binding.cbCategory.setVisible(showSelection)
         binding.root.setOnClickListener(baseHolder.clickListener)
     }
+```
 
 ### and you will have callback of each item click
 
+``` kotlin
 adapter.setRecyclerViewItemClick { itemView, model ->
             if (getSelectedCategoryCSV().size == 5 && !model.isSelected) {
                 getString(R.string.msg_max_cat_sel).showToast()
@@ -58,6 +62,7 @@ adapter.setRecyclerViewItemClick { itemView, model ->
             }
         }
 
+```
 
 ### Filter (Search,etc..)
 
@@ -76,7 +81,7 @@ adapter.performFilter(text, object :BaseAdapter.OnFilter<Category>{
 
 
 ### Load More
-
+``` kotlin
 adapter.enableLoadMore(binding.recyclerView, BaseAdapter.OnLoadMoreListener {
             if (paging != -1) {
                 requestLoadMore() //Your Method
@@ -85,5 +90,6 @@ adapter.enableLoadMore(binding.recyclerView, BaseAdapter.OnLoadMoreListener {
             return@OnLoadMoreListener false // Return false if you don't have more data
         })
 
+```
 
 Happy Coding..!

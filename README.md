@@ -56,9 +56,9 @@ adapter.setRecyclerViewItemClick { itemView, model ->
 adapter.performFilter(text, object :BaseAdapter.OnFilter<Category>{
                     override fun onFilterApply(text: String, model: Category): Boolean {
                         if (model.name?.toLowerCase()?.contains(text.toLowerCase())!!) {
-                            return true
+                            return true //Return True if you want to include this model in this text search
                         }
-                        return false
+                        return false //It will not include model if you return false
                     }
 
                     override fun onResult(data: java.util.ArrayList<Category>?) {

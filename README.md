@@ -32,8 +32,8 @@ class CategoryAdapter() :BaseAdapter<Category, InflaterCategoryBinding>(R.layout
 
 ## View usage
 
-### Handle click events of recycler view item
-### override this method and set OnClickListener to baseHolder.clickListener
+#### Handle click events of recycler view item
+#### override this method and set OnClickListener to baseHolder.clickListener
 
 ``` kotlin
 override fun onCreatingHolder(binding: InflaterCategoryBinding, baseHolder: BaseHolder) {
@@ -42,16 +42,13 @@ override fun onCreatingHolder(binding: InflaterCategoryBinding, baseHolder: Base
     }
 ```
 
-### and you will have callback of each item click
+#### and you will have callback of each item click
 
 ``` kotlin
-adapter.setRecyclerViewItemClick { itemView, model ->
-            //Perform Operation here
-        }
-
+adapter.setRecyclerViewItemClick { itemView, model -> //Perform Operation here }
 ```
 
-### Filter (Search,etc..)
+#### Filter (Search,etc..)
 ``` kotlin
 adapter.performFilter(text, object :BaseAdapter.OnFilter<Category>{
                     override fun onFilterApply(text: String, model: Category): Boolean {
@@ -68,7 +65,7 @@ adapter.performFilter(text, object :BaseAdapter.OnFilter<Category>{
 
 ```
 
-### Load More
+#### Load More
 ``` kotlin
 adapter.enableLoadMore(binding.recyclerView, BaseAdapter.OnLoadMoreListener {
             if (paging != -1) {

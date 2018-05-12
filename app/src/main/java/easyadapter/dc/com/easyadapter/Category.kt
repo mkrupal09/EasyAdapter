@@ -10,11 +10,10 @@ import java.io.Serializable
 public class Category : Serializable {
 
 
-    var name: String? = ""
-    var id: String? = ""
-    var parentId: String? = ""
-    var image: String? = ""
-
+    var name: String = ""
+    var id: String = ""
+    var parentId: String = ""
+    var image: String = ""
     var isSelected: Boolean = false
 
 

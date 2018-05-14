@@ -31,6 +31,26 @@ or Gradle:
 implementation 'com.dc.easyadapter:easyadapter:1.0'
 ```
 
+### To enable data binding
+
+inside app build.gradle
+```groovy
+android {
+    dataBinding {
+        enabled = true
+    }
+}
+```
+
+For Kotlin also add
+ ```groovy
+ dependencies{
+        kapt 'com.android.databinding:compiler:3.1.2'
+}
+
+apply plugin: 'kotlin-kapt' //Top at build.gradle
+```
+
 Usage
 ----------
 
@@ -97,28 +117,6 @@ adapter.enableLoadMore(binding.recyclerView, EasyAdapter.OnLoadMoreListener {
         })
 
 ```
-
-### To enable data binding
-
------------------------------
-inside app build.gradle
-```groovy
-android {
-    dataBinding {
-        enabled = true
-    }
-}
-```
-
-For Kotlin also add
- ```groovy
- dependencies{
-        kapt 'com.android.databinding:compiler:3.1.2'
-}
-
-apply plugin: 'kotlin-kapt' //Top at build.gradle
-```
-
 
 Happy Coding..!
 

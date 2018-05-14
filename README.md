@@ -1,7 +1,4 @@
-# EasyAdapter
-
-
-(Supports only with DataBinding)
+# EasyAdapter(Supports only with DataBinding)
 
 It Removes Boilerplate code of creating adapter
 
@@ -50,10 +47,6 @@ For Kotlin also add
 
 apply plugin: 'kotlin-kapt' //Top at build.gradle
 ```
-
-Usage
-----------
-
 
 ## Adapter Creation
 

@@ -1,6 +1,4 @@
-# EasyAdapter(Supports only with DataBinding)
-
-It Removes Boilerplate code of creating adapter
+# EasyAdapter (Support only with DataBinding)
 
 Features
 
@@ -8,8 +6,8 @@ Features
 - You can filter adapter without coding much.
 - You wil have load more feature with loading at bottom.
 - It has swipe to action functionality.
+- View Events callbacks (ClickEvent,CheckChangeEvent)
 - and many more..
-
 
 Download
 --------
@@ -28,7 +26,8 @@ or Gradle:
 implementation 'com.dc.easyadapter:easyadapter:1.0'
 ```
 
-### To enable data binding
+To enable data binding
+-------------------------
 
 inside app build.gradle
 ```groovy

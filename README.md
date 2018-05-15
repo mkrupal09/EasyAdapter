@@ -1,10 +1,10 @@
 # EasyAdapter (Support only with DataBinding)
 
-- Removes Boilerplate code to create adapter and holder.
-- You can filter adapter without coding much.
-- You wil have load more feature with loading at bottom.
-- It has swipe to action functionality.
-- View Events callbacks (ClickEvent,CheckChangeEvent)
+- Reduce Boilerplate code to create adapter and holder.
+- you can filter adapter without coding much.
+- You wil have load more feature with progress bar at bottom.
+- includes swipe to action.
+- includes View Events callbacks (ClickEvent,CheckChangeEvent)
 - and many more..
 
 Download
@@ -144,10 +144,10 @@ adapter.enableLoadMore(binding.recyclerView, EasyAdapter.OnLoadMoreListener {
  
     file contains -
     
-    Air Conditioning Mechanic <br />
-    Antenner Installer <br />
-    HVAC Mechanic <br />
-    Electrician <br />
+    Georgia <br />
+    Illinois <br />
+    Paris <br />
+    London <br />
     
     so it will randomly pick names and display in layout by
 

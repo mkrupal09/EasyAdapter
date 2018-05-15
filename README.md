@@ -1,6 +1,6 @@
 # EasyAdapter (Support only with DataBinding)
 
-- Removes Boilerplate code to create adapter.
+- Removes Boilerplate code to create adapter and holder.
 - You can filter adapter without coding much.
 - You wil have load more feature with loading at bottom.
 - It has swipe to action functionality.
@@ -9,17 +9,6 @@
 
 Download
 --------
-
-Grab via Maven:
-```xml
-<dependency>
-  <groupId>com.dc.easyadapter</groupId>
-  <artifactId>easyadapter</artifactId>
-  <version>1.0</version>
-  <type>pom</type>
-</dependency>
-```
-or Gradle:
 ```groovy
 implementation 'com.dc.easyadapter:easyadapter:1.0'
 ```
@@ -53,9 +42,7 @@ class CategoryAdapter() :EasyAdapter<Category, InflaterCategoryBinding>(R.layout
     override fun onBind(binding: InflaterCategoryBinding, model: Category) {
         binding.apply {
             tvName.text = model.name
-            tvName.isSelected = model.isSelected
             cbCategory.isChecked = model.isSelected
-            ivCategoryIcon.loadImage(model.image!!, R.drawable.img_nocate)
         }
     }
 }
@@ -107,8 +94,6 @@ adapter.enableLoadMore(binding.recyclerView, EasyAdapter.OnLoadMoreListener {
         })
 
 ```
-
-Happy Coding..!
 
 License
 =======

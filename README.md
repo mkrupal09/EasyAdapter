@@ -106,7 +106,7 @@ adapter.enableLoadMore(binding.recyclerView, EasyAdapter.OnLoadMoreListener {
 
 ```
 
-Pro Tips
+#### Pro Tips
 
 1. Use tools attribute for previewing Layout, so you don't need to always run application
 

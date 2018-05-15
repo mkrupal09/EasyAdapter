@@ -1,7 +1,5 @@
 # EasyAdapter (Support only with DataBinding)
 
-Features
-
 - Removes Boilerplate code to create adapter.
 - You can filter adapter without coding much.
 - You wil have load more feature with loading at bottom.
@@ -63,7 +61,7 @@ class CategoryAdapter() :EasyAdapter<Category, InflaterCategoryBinding>(R.layout
 }
 ```
 
-## View usage
+## Usage
 
 #### To Handle recycler View item Events 
 

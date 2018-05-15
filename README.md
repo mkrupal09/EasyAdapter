@@ -68,6 +68,7 @@ class CategoryAdapter() :EasyAdapter<Category, InflaterCategoryBinding>(R.layout
 #### To Handle recycler View item Events 
 
 ``` kotlin
+//Override in Adapter
 override fun onCreatingHolder(binding: InflaterCategoryBinding, baseHolder: BaseHolder) {
         super.onCreatingHolder(binding, baseHolder)
         binding.root.setOnClickListener(baseHolder.clickListener)
@@ -75,7 +76,9 @@ override fun onCreatingHolder(binding: InflaterCategoryBinding, baseHolder: Base
 ```
 
 ``` kotlin
-adapter.setRecyclerViewItemClick { itemView, model -> //Perform Operation here }
+adapter.setRecyclerViewItemClick { itemView, model -> 
+//Perform Operation here 
+}
 ```
 
 #### Filter (Search,etc..)

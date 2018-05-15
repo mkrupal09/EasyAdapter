@@ -9,6 +9,17 @@
 
 Download
 --------
+
+Grab via Maven:
+```xml
+<dependency>
+  <groupId>com.dc.easyadapter</groupId>
+  <artifactId>easyadapter</artifactId>
+  <version>1.0</version>
+  <type>pom</type>
+</dependency>
+```
+or Gradle:
 ```groovy
 implementation 'com.dc.easyadapter:easyadapter:1.0'
 ```

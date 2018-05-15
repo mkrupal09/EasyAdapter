@@ -106,6 +106,56 @@ adapter.enableLoadMore(binding.recyclerView, EasyAdapter.OnLoadMoreListener {
 
 ```
 
+Pro Tips
+
+1. Use tools attribute for previewing Layout, so you don't need to always run application
+
+ - inside recyclerview
+  
+  ```xml
+ tools:listitem="@layout/inflater_category"
+ tools:itemCount="5"
+ tools:orientation="horizontal"
+ app:layoutManager="android.support.v7.widget.GridLayoutManager"
+
+```
+ 
+ - inside any layout
+ 
+ ```xml
+ tools:text="Sample Text"
+ tools:visibility="VISIBLE"
+ tools:background="@color/colorPrimary"
+```
+ 
+ - you can also use android predefine sample data by
+ 
+```xml
+ tools:text="@tools:sample/cities,first_names,us_phones,lorem,lorem/random"
+ tools:background="@tools:sample/backgrounds/scenic"
+ tools:src="@tools/avatars"
+```
+ 
+ - you can also make your own sample data
+ 
+    To create your fake/sample data folder,
+    just right click on the “app” folder then “new > Sample Data directory” <br />
+    create new file with "filename" and write each text by new lines
+ 
+    file contains -
+    
+    Air Conditioning Mechanic <br />
+    Antenner Installer <br />
+    HVAC Mechanic <br />
+    Electrician <br />
+    
+    so it will randomly pick names and display in layout by
+
+```xml
+tools:text="@sample/filename" 
+```
+
+
 License
 =======
 

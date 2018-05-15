@@ -13,7 +13,9 @@ class CategoryAdapter() :
         super.onCreatingHolder(binding, baseHolder)
         binding.cbCategory.setOnCheckedChangeListener(baseHolder.checkedChangeListener)
         binding.root.setOnClickListener(baseHolder.clickListener)
-
+        binding.llDelete.post {
+            baseHolder.setEnableSwipeToDelete(binding.llCategory, 0, binding.llDelete.measuredWidth)
+        }
     }
 
     override fun onBind(binding: InflaterCategoryBinding, model: Category) {

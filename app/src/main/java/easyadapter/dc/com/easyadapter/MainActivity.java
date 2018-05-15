@@ -74,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        adapter.enableSwipeAction(binding.recyclerView);
+
     }
 
     @NonNull

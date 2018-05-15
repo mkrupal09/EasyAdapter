@@ -407,6 +407,12 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
             endViewSize = 0;
         }
     }
+
+    public void enableSwipeAction(RecyclerView recyclerView) {
+        SwipeOpenItemTouchHelper helper = new SwipeOpenItemTouchHelper(new SwipeOpenItemTouchHelper.SimpleCallback(
+                SwipeOpenItemTouchHelper.START | SwipeOpenItemTouchHelper.END));
+        helper.attachToRecyclerView(recyclerView);
+    }
 }
 
 

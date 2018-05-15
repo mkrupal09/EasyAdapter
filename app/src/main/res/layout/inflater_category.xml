@@ -2,33 +2,53 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
-        android:id="@+id/llCategory"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="5dp">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/ivCategoryIcon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            tools:src="@tools:sample/avatars" />
-
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/tvName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+        <LinearLayout
+            android:id="@+id/llDelete"
             android:padding="10dp"
-            tools:text="@tools:sample/cities"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
-
-        <CheckBox
-            android:id="@+id/cbCategory"
+            android:layout_gravity="end"
+            android:background="@android:color/holo_red_dark"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_input_delete" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="@android:color/white"
+            android:id="@+id/llCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/ivCategoryIcon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                tools:src="@tools:sample/avatars" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tvName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                tools:text="@tools:sample/cities" />
+
+            <CheckBox
+                android:id="@+id/cbCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </FrameLayout>
 </layout>

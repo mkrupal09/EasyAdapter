@@ -63,7 +63,7 @@ class CategoryAdapter() :EasyAdapter<Category, InflaterCategoryBinding>(R.layout
 }
 ```
 
-## View usage
+## Usage
 
 #### To Handle recycler View item Events 
 

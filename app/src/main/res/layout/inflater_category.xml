@@ -25,5 +25,10 @@
             tools:text="@tools:sample/cities"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
+
+        <CheckBox
+            android:id="@+id/cbCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </layout>

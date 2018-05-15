@@ -6,8 +6,11 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
+import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import easyadapter.dc.com.easyadapter.databinding.ActivityMainBinding;
 import easyadapter.dc.com.library.EasyAdapter;
@@ -25,15 +28,8 @@ public class MainActivity extends AppCompatActivity {
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(adapter = new CategoryAdapter());
 
-        adapter.add(Category.Companion.createDummy("Krupal"));
-        adapter.add(Category.Companion.createDummy("Dhruv"));
-        adapter.add(Category.Companion.createDummy("Aagam"));
-        adapter.add(Category.Companion.createDummy("Krupal"));
-        adapter.add(Category.Companion.createDummy("Dhruv"));
-        adapter.add(Category.Companion.createDummy("Aagam"));
-        adapter.add(Category.Companion.createDummy("Krupal"));
-        adapter.add(Category.Companion.createDummy("Dhruv"));
-        adapter.add(Category.Companion.createDummy("Aagam"));
+        adapter.addAll(getTemp());
+        adapter.add(Category.Companion.createDummy("Last Row"));
 
         adapter.notifyDataSetChanged();
 
@@ -62,14 +58,36 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        adapter.enableLoadMore(binding.recyclerView, R.layout.layout_progress, new EasyAdapter.OnLoadMoreListener() {
+        adapter.setLoadMoreRes(R.layout.layout_progress);
+
+        adapter.setOnLoadMoreListener(binding.recyclerView, new EasyAdapter.OnLoadMoreListener() {
             @Override
             public boolean onLoadMore() {
                 return true;
             }
         });
 
+        adapter.setRecyclerViewItemCheckChange(new EasyAdapter.OnRecyclerViewItemCheckChange<Category>() {
+            @Override
+            public void onRecyclerViewItemCheckChange(View view, boolean isCheck, Category model) {
+                Toast.makeText(MainActivity.this, String.valueOf(isCheck), Toast.LENGTH_SHORT).show();
+            }
+        });
 
+    }
+
+    @NonNull
+    private List<Category> getTemp() {
+        List<Category> temp = new ArrayList<>();
+        temp.add(Category.Companion.createDummy("Krupal"));
+        temp.add(Category.Companion.createDummy("Dhruv"));
+        temp.add(Category.Companion.createDummy("Aagam"));
+        temp.add(Category.Companion.createDummy("Krupal"));
+        temp.add(Category.Companion.createDummy("Dhruv"));
+        temp.add(Category.Companion.createDummy("Aagam"));
+        temp.add(Category.Companion.createDummy("Krupal"));
+        temp.add(Category.Companion.createDummy("Dhruv"));
+        return temp;
     }
 
 

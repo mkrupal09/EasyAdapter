@@ -29,19 +29,28 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
     private final int VIEW_PROGRESS = 0;
     private boolean loading = false;
     private boolean isLoadMoreEnabled = false;
-    private int loadMoreRes = -1;
+    private int loadMoreRes = R.layout.layout_load_more;
     private final ArrayList<M> data;
     private final ArrayList<M> temp;
     private int layout;
     private OnRecyclerViewItemClick<M> recyclerViewItemClick;
+    private OnRecyclerViewItemCheckChange<M> recyclerViewItemCheckChange;
 
 
     public interface OnRecyclerViewItemClick<M> {
         void onRecyclerViewItemClick(View view, M model);
     }
 
+    public interface OnRecyclerViewItemCheckChange<M> {
+        void onRecyclerViewItemCheckChange(View view, boolean isCheck, M model);
+    }
+
     public interface OnHolderItemClick {
         void onHolderItemClick(View view, int position);
+    }
+
+    public interface OnHolderItemCheckChange {
+        void onHolderItemCheckChange(View view, boolean isCheck, int position);
     }
 
     public interface OnFilter<M> {
@@ -74,6 +83,11 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
         return this;
     }
 
+    public EasyAdapter<M, B> setRecyclerViewItemCheckChange(OnRecyclerViewItemCheckChange<M> recyclerViewItemCheckChange) {
+        this.recyclerViewItemCheckChange = recyclerViewItemCheckChange;
+        return this;
+    }
+
 
     public final ArrayList<M> getData() {
         return data;
@@ -87,6 +101,11 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
     public void onItemClick(View view, M model) {
         if (recyclerViewItemClick != null)
             recyclerViewItemClick.onRecyclerViewItemClick(view, model);
+    }
+
+    public void onItemCheckChange(View view, boolean isCheck, M model) {
+        if (recyclerViewItemCheckChange != null)
+            recyclerViewItemCheckChange.onRecyclerViewItemCheckChange(view, isCheck, model);
     }
 
 
@@ -154,6 +173,14 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
                         onItemClick(view, data.get(position));
                 }
             });
+            baseHolder.setHolderItemCheckChange(new OnHolderItemCheckChange() {
+                @Override
+                public void onHolderItemCheckChange(View view, boolean isCheck, int position) {
+                    if (position != -1) {
+                        onItemCheckChange(view, isCheck, data.get(position));
+                    }
+                }
+            });
             return baseHolder;
         } else {
             View view;
@@ -171,8 +198,6 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
         if (!holder.isLoadingView) {
             onBind((B) holder.binding, data.get(position));
         }
-
-
     }
 
     @Override
@@ -211,11 +236,11 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
         notifyDataSetChanged();
     }
 
-    public void enableLoadMore(RecyclerView recyclerView, OnLoadMoreListener onLoadMoreListener) {
-        enableLoadMore(recyclerView, loadMoreRes, onLoadMoreListener);
+    public void setLoadMoreRes(int loadMoreRes) {
+        this.loadMoreRes = loadMoreRes;
     }
 
-    public void enableLoadMore(RecyclerView recyclerView, int loadMoreRes, final OnLoadMoreListener onLoadMoreListener) {
+    public void setOnLoadMoreListener(RecyclerView recyclerView, final OnLoadMoreListener onLoadMoreListener) {
         if (recyclerView != null && onLoadMoreListener != null) {
 
             final RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
@@ -241,16 +266,12 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
 
                     if (layoutManager instanceof StaggeredGridLayoutManager) {
                         int[] lastVisibleItemPositions = ((StaggeredGridLayoutManager) layoutManager).findLastVisibleItemPositions(null);
-                        // get maximum element within the list
                         lastVisibleItem = getLastVisibleItem(lastVisibleItemPositions);
-//                        firstVisibleItem = getFirstVisibleItem(((StaggeredGridLayoutManager) layoutManager).findFirstVisibleItemPositions(null));
                     } else if (layoutManager instanceof GridLayoutManager) {
                         lastVisibleItem = ((GridLayoutManager) layoutManager).findLastVisibleItemPosition();
-//                        firstVisibleItem = ((GridLayoutManager) layoutManager).findFirstVisibleItemPosition();
                     } else if (layoutManager instanceof LinearLayoutManager) {
                         lastVisibleItem = ((LinearLayoutManager) layoutManager).findLastVisibleItemPosition();
                     }
-
                     if (!loading && totalItemCount <= (lastVisibleItem + 2)) {
                         new android.os.Handler().post(new Runnable() {
                             @Override
@@ -270,15 +291,7 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
                 }
             });
 
-            new android.os.Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-//                    loading = onLoadMoreListener.onLoadMore();
-//                    notifyDataSetChanged();
-                }
-            }, 2000);
             isLoadMoreEnabled = true;
-            this.loadMoreRes = loadMoreRes;
         }
 
     }
@@ -302,6 +315,7 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
         private ViewDataBinding binding;
         boolean isLoadingView;
         private OnHolderItemClick holderItemClick;
+        private OnHolderItemCheckChange holderItemCheckChange;
         public View swipeView;
         public int startViewSize = 0, endViewSize = 0;
 
@@ -317,7 +331,10 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
 
         void setHolderItemClick(OnHolderItemClick holderItemClick) {
             this.holderItemClick = holderItemClick;
+        }
 
+        public void setHolderItemCheckChange(OnHolderItemCheckChange holderItemCheckChange) {
+            this.holderItemCheckChange = holderItemCheckChange;
         }
 
         private View.OnClickListener mOnClickListener = new View.OnClickListener() {
@@ -334,7 +351,7 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
         public CompoundButton.OnCheckedChangeListener checkedChangeListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
+                holderItemCheckChange.onHolderItemCheckChange(compoundButton, b, getAdapterPosition());
             }
         };
 
@@ -390,8 +407,6 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
             endViewSize = 0;
         }
     }
-
-
 }
 
 

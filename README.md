@@ -65,8 +65,7 @@ class CategoryAdapter() :EasyAdapter<Category, InflaterCategoryBinding>(R.layout
 
 ## View usage
 
-#### To Handle View events of recycler view item override method and set View events 
-#### i.e To set OnClickListener to View use baseHolder.clickListener
+#### To Handle recycler View item Events 
 
 ``` kotlin
 override fun onCreatingHolder(binding: InflaterCategoryBinding, baseHolder: BaseHolder) {
@@ -74,8 +73,6 @@ override fun onCreatingHolder(binding: InflaterCategoryBinding, baseHolder: Base
         binding.root.setOnClickListener(baseHolder.clickListener)
     }
 ```
-
-#### and you will have callback of each item click
 
 ``` kotlin
 adapter.setRecyclerViewItemClick { itemView, model -> //Perform Operation here }

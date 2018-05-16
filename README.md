@@ -107,6 +107,62 @@ adapter.setOnLoadMoreListener(binding.recyclerView, EasyAdapter.OnLoadMoreListen
 
 ```
 
+#### Swipe Action
+
+```kotlin
+adapter.enableSwipeAction(binding.recyclerView)
+```
+
+```kotlin
+override fun onCreatingHolder(binding: InflaterCategoryBinding, baseHolder: BaseHolder) {
+        binding.llDelete.post {
+            baseHolder.setEnableSwipeToDelete(binding.llCategory, 0, binding.llDelete.measuredWidth)
+        }
+    }
+    
+```
+```xml
+ <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        //Swipe Reveal Layout
+        <LinearLayout
+            android:id="@+id/llDelete"
+            android:padding="10dp"
+            android:layout_gravity="end"
+            android:background="@android:color/holo_red_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_input_delete" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="@android:color/white"
+            android:id="@+id/llCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="5dp"/>
+            
+</FrameLayout>
+```
+
+#### Data Observe
+
+```kotlin
+adapter.setOnDataUpdateListener {
+            if (it.size <= 0) {
+                Toast.makeText(this@MainActivity, "No Data Found", Toast.LENGTH_SHORT).show()
+            }
+        }
+```
+
 #### Pro Tips
 
 1. Use tools attribute for previewing Layout, so you don't need to always run application

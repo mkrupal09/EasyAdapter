@@ -74,6 +74,13 @@ class MainActivity : AppCompatActivity() {
 
         //Swipe Action
         adapter.enableSwipeAction(binding.recyclerView)
+
+        //Observe Data change (so you can show no data view if there is no data to display)
+        adapter.setOnDataUpdateListener {
+            if (it.size <= 0) {
+                Toast.makeText(this@MainActivity, "No Data Found", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
 }

@@ -33,8 +33,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.adapter = CategoryAdapter()
+        adapter = CategoryAdapter()
+        binding.recyclerView.adapter = adapter
 
         adapter.addAll(temp)
         adapter.add(Category.createDummy("Last Row"))

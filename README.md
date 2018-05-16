@@ -61,7 +61,7 @@ class CategoryAdapter() :EasyAdapter<Category, InflaterCategoryBinding>(R.layout
 
 ## Usage
 
-#### To Handle recycler View item Events 
+#### 1) To Handle recycler View item Events 
 
 ``` kotlin
 //Override in Adapter
@@ -77,7 +77,7 @@ adapter.setRecyclerViewItemClick { itemView, model ->
 }
 ```
 
-#### Filter (Search,etc..)
+#### 2) Filter (Search,etc..)
 ``` kotlin
 adapter.performFilter(text, object :EasyAdapter.OnFilter<Category>{
                     override fun onFilterApply(text: String, model: Category): Boolean {
@@ -94,7 +94,7 @@ adapter.performFilter(text, object :EasyAdapter.OnFilter<Category>{
 
 ```
 
-#### Load More
+#### 3) Load More
 ``` kotlin
 adapter.setLoadMoreRes(R.layout.layout_progress)
 adapter.setOnLoadMoreListener(binding.recyclerView, EasyAdapter.OnLoadMoreListener {
@@ -107,7 +107,7 @@ adapter.setOnLoadMoreListener(binding.recyclerView, EasyAdapter.OnLoadMoreListen
 
 ```
 
-#### Swipe Action
+#### 4) Swipe Action
 
 ```kotlin
 adapter.enableSwipeAction(binding.recyclerView)
@@ -141,6 +141,7 @@ override fun onCreatingHolder(binding: InflaterCategoryBinding, baseHolder: Base
                 android:src="@android:drawable/ic_input_delete" />
         </LinearLayout>
 
+        //Your container
         <LinearLayout
             android:background="@android:color/white"
             android:id="@+id/llCategory"
@@ -153,7 +154,7 @@ override fun onCreatingHolder(binding: InflaterCategoryBinding, baseHolder: Base
 </FrameLayout>
 ```
 
-#### Data Observe
+#### 5) Data Observe
 
 ```kotlin
 adapter.setOnDataUpdateListener {

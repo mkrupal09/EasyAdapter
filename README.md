@@ -15,13 +15,13 @@ Grab via Maven:
 <dependency>
   <groupId>com.dc.easyadapter</groupId>
   <artifactId>easyadapter</artifactId>
-  <version>1.0</version>
+  <version>1.1</version>
   <type>pom</type>
 </dependency>
 ```
 or Gradle:
 ```groovy
-implementation 'com.dc.easyadapter:easyadapter:1.0'
+implementation 'com.dc.easyadapter:easyadapter:1.1'
 ```
 
 To enable data binding
@@ -96,7 +96,8 @@ adapter.performFilter(text, object :EasyAdapter.OnFilter<Category>{
 
 #### Load More
 ``` kotlin
-adapter.enableLoadMore(binding.recyclerView, EasyAdapter.OnLoadMoreListener {
+adapter.setLoadMoreRes(R.layout.layout_progress)
+adapter.setOnLoadMoreListener(binding.recyclerView, EasyAdapter.OnLoadMoreListener {
             if (paging != -1) {
                 requestLoadMore() //Your Method
                 return@OnLoadMoreListener true // Returns True if you have more data

@@ -6,7 +6,7 @@ import easyadapter.dc.com.library.EasyAdapter
 /**
  * Created by Krupal on 21/3/18.
  */
-class CategoryAdapter() :
+class CategoryAdapter :
         EasyAdapter<Category, InflaterCategoryBinding>(R.layout.inflater_category) {
 
     override fun onCreatingHolder(binding: InflaterCategoryBinding, baseHolder: BaseHolder) {

@@ -3,6 +3,7 @@ package easyadapter.dc.com.library;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -64,7 +65,7 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
     }
 
 
-    public EasyAdapter(int layout) {
+    public EasyAdapter(@LayoutRes int layout) {
         data = new ArrayList<>();
         temp = new ArrayList<>();
         temp.addAll(data);

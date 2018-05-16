@@ -2,6 +2,8 @@ package easyadapter.dc.com.library;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.databinding.ObservableArrayList;
+import android.databinding.ObservableList;
 import android.databinding.ViewDataBinding;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -31,8 +33,8 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
     private boolean loading = false;
     private boolean isLoadMoreEnabled = false;
     private int loadMoreRes = R.layout.layout_load_more;
-    private final ArrayList<M> data;
-    private final ArrayList<M> temp;
+    private final ObservableArrayList<M> data;
+    private final ObservableArrayList<M> temp;
     private int layout;
     private OnRecyclerViewItemClick<M> recyclerViewItemClick;
     private OnRecyclerViewItemCheckChange<M> recyclerViewItemCheckChange;
@@ -66,9 +68,10 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
 
 
     public EasyAdapter(@LayoutRes int layout) {
-        data = new ArrayList<>();
-        temp = new ArrayList<>();
+        data = new ObservableArrayList<>();
+        temp = new ObservableArrayList<>();
         temp.addAll(data);
+        data.addOnListChangedCallback(dataChangeObs);
         this.layout = layout;
     }
 
@@ -162,7 +165,7 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
 
 
     @Override
-    public BaseHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public final BaseHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == VIEW_ITEM) {
             BaseHolder baseHolder = new BaseHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                     layout, parent, false));
@@ -413,6 +416,53 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
         SwipeOpenItemTouchHelper helper = new SwipeOpenItemTouchHelper(new SwipeOpenItemTouchHelper.SimpleCallback(
                 SwipeOpenItemTouchHelper.START | SwipeOpenItemTouchHelper.END));
         helper.attachToRecyclerView(recyclerView);
+    }
+
+
+    public interface OnDataUpdate<M> {
+        public void onDataUpdate(ArrayList<M> data);
+    }
+
+    private OnDataUpdate<M> onDataUpdate;
+
+    public void setOnDataUpdateListener(OnDataUpdate<M> onDataUpdate) {
+        this.onDataUpdate = onDataUpdate;
+    }
+
+
+
+    private ObservableList.OnListChangedCallback<ObservableList<M>> dataChangeObs =
+            new ObservableList.OnListChangedCallback<ObservableList<M>>() {
+                @Override
+                public void onChanged(ObservableList<M> sender) {
+                    onDataUpdate();
+                }
+
+                @Override
+                public void onItemRangeChanged(ObservableList<M> sender, int positionStart, int itemCount) {
+                    onDataUpdate();
+                }
+
+                @Override
+                public void onItemRangeInserted(ObservableList<M> sender, int positionStart, int itemCount) {
+                    onDataUpdate();
+                }
+
+                @Override
+                public void onItemRangeMoved(ObservableList<M> sender, int fromPosition, int toPosition, int itemCount) {
+                    onDataUpdate();
+                }
+
+                @Override
+                public void onItemRangeRemoved(ObservableList<M> sender, int positionStart, int itemCount) {
+                    onDataUpdate();
+                }
+            };
+
+    private void onDataUpdate() {
+        if (onDataUpdate != null) {
+            onDataUpdate.onDataUpdate(getData());
+        }
     }
 }
 

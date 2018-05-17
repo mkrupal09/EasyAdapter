@@ -464,6 +464,14 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
             onDataUpdate.onDataUpdate(getData());
         }
     }
+
+    public void disableDataObserver() {
+        data.removeOnListChangedCallback(dataChangeObs);
+    }
+
+    public void enableDataObserver() {
+        data.addOnListChangedCallback(dataChangeObs);
+    }
 }
 
 

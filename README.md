@@ -45,7 +45,12 @@ For Kotlin also add
 apply plugin: 'kotlin-kapt' //Top at build.gradle
 ```
 
-## Adapter Creation
+
+
+
+
+## Usage
+
 
 ``` kotlin
 class CategoryAdapter() :EasyAdapter<Category, InflaterCategoryBinding>(R.layout.inflater_category) {
@@ -58,8 +63,6 @@ class CategoryAdapter() :EasyAdapter<Category, InflaterCategoryBinding>(R.layout
     }
 }
 ```
-
-## Usage
 
 #### 1) To Handle recycler View item Events 
 
@@ -87,7 +90,7 @@ adapter.performFilter(text, object :EasyAdapter.OnFilter<Category>{
                         return false //It will not include model if you return false
                     }
 
-                    override fun onResult(data: java.util.ArrayList<Category>?) {
+                    override fun onResult(data: ArrayList<Category>?) {
                         //Filtered List to do any operation
                     }
                 })
@@ -109,11 +112,11 @@ adapter.setOnLoadMoreListener(binding.recyclerView, EasyAdapter.OnLoadMoreListen
 
 #### 4) Swipe Action
 
-```kotlin
+``` kotlin
 adapter.enableSwipeAction(binding.recyclerView)
 ```
 
-```kotlin
+``` kotlin
 override fun onCreatingHolder(binding: InflaterCategoryBinding, baseHolder: BaseHolder) {
         binding.llDelete.post {
             baseHolder.setEnableSwipeToDelete(binding.llCategory, 0, binding.llDelete.measuredWidth)
@@ -121,7 +124,7 @@ override fun onCreatingHolder(binding: InflaterCategoryBinding, baseHolder: Base
     }
     
 ```
-```xml
+``` xml
  <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -156,7 +159,7 @@ override fun onCreatingHolder(binding: InflaterCategoryBinding, baseHolder: Base
 
 #### 5) Data Observe
 
-```kotlin
+``` kotlin
 adapter.setOnDataUpdateListener {
             if (it.size <= 0) {
                 Toast.makeText(this@MainActivity, "No Data Found", Toast.LENGTH_SHORT).show()
@@ -166,11 +169,12 @@ adapter.setOnDataUpdateListener {
 
 #### Pro Tips
 
-1. Use tools attribute for previewing Layout, so you don't need to always run application
 
- - inside recyclerview
+Use tools attribute for previewing Layout, so you don't need to always run application
+
+ - **recyclerview**
   
-  ```xml
+  ``` xml
  tools:listitem="@layout/inflater_category"
  tools:itemCount="5"
  tools:orientation="horizontal"
@@ -178,23 +182,23 @@ adapter.setOnDataUpdateListener {
 
 ```
  
- - inside any layout
+ - **layout**
  
- ```xml
+ ``` xml
  tools:text="Sample Text"
  tools:visibility="VISIBLE"
  tools:background="@color/colorPrimary"
 ```
  
- - you can also use android predefine sample data by
+ - **android predefine sample data**
  
-```xml
+``` xml
  tools:text="@tools:sample/cities,first_names,us_phones,lorem,lorem/random"
  tools:background="@tools:sample/backgrounds/scenic"
  tools:src="@tools/avatars"
 ```
  
- - you can also make your own sample data
+ - **custom sample data**
  
     To create your fake/sample data folder,
     just right click on the “app” folder then “new > Sample Data directory” <br />
@@ -209,14 +213,19 @@ adapter.setOnDataUpdateListener {
     
     so it will randomly pick names and display in layout by
 
-```xml
+``` xml
 tools:text="@sample/filename" 
 ```
 
 ### [Special Thanks to] <br />
-(https://github.com/alex-townsend/SwipeOpenItemTouchHelper)
+
+https://github.com/alex-townsend/SwipeOpenItemTouchHelper
 <br />
 without this person cannot achieve swipe action in recyclerview
+
+
+https://android.jlelse.eu/android-tools-attributes-listitem-sample-data-rocks-bbf49aaa9f07 <br />
+for sharing knowledge of Android Tools attributes 
 
 License
 =======

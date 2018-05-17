@@ -213,7 +213,7 @@ adapter.setOnDataUpdateListener {
 tools:text="@sample/filename" 
 ```
 
-###[Special Thanks to] <br />
+### [Special Thanks to] <br />
 (https://github.com/alex-townsend/SwipeOpenItemTouchHelper)
 <br />
 without this person cannot achieve swipe action in recyclerview

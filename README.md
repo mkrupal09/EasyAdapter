@@ -172,7 +172,7 @@ adapter.setOnDataUpdateListener {
 
 Use tools attribute for previewing Layout, so you don't need to always run application
 
- - **recyclerview**
+**recyclerview**
   
   ``` xml
  tools:listitem="@layout/inflater_category"
@@ -182,7 +182,7 @@ Use tools attribute for previewing Layout, so you don't need to always run appli
 
 ```
  
- - **layout**
+**layout**
  
  ``` xml
  tools:text="Sample Text"
@@ -190,7 +190,7 @@ Use tools attribute for previewing Layout, so you don't need to always run appli
  tools:background="@color/colorPrimary"
 ```
  
- - **android predefine sample data**
+**android predefine sample data**
  
 ``` xml
  tools:text="@tools:sample/cities,first_names,us_phones,lorem,lorem/random"
@@ -198,7 +198,7 @@ Use tools attribute for previewing Layout, so you don't need to always run appli
  tools:src="@tools/avatars"
 ```
  
- - **custom sample data**
+**custom sample data**
  
     To create your fake/sample data folder,
     just right click on the “app” folder then “new > Sample Data directory” <br />

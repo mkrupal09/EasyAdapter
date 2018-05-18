@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         adapter = CategoryAdapter()
         binding.recyclerView.adapter = adapter
 
-        adapter.addAll(temp)
+        adapter.addAll(temp, true)
         adapter.add(Category.createDummy("Last Row"))
         adapter.notifyDataSetChanged()
 
@@ -51,13 +51,16 @@ class MainActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(newText: String): Boolean {
                 adapter.performFilter(newText, object : EasyAdapter.OnFilter<Category> {
+                    override fun onFilterResult(filteredList: ArrayList<Category>?) {
+                        adapter.clear(false)
+                        adapter.addAll(filteredList, false)
+                        adapter.notifyDataSetChanged()
+                    }
+
                     override fun onFilterApply(filter: Any, model: Category): Boolean {
                         return model.name.toLowerCase().contains(filter.toString().toLowerCase())
                     }
 
-                    override fun onResult(data: ArrayList<Category>) {
-                        adapter.clearAddAllNotify(data)
-                    }
                 })
                 return false
             }

@@ -68,9 +68,9 @@ class CategoryAdapter() :EasyAdapter<Category, InflaterCategoryBinding>(R.layout
 
 ``` kotlin
 //Override in Adapter
-override fun onCreatingHolder(binding: InflaterCategoryBinding, baseHolder: BaseHolder) {
-        super.onCreatingHolder(binding, baseHolder)
-        binding.root.setOnClickListener(baseHolder.clickListener)
+override fun onCreatingHolder(binding: InflaterCategoryBinding, easyHolder: BaseHolder) {
+        super.onCreatingHolder(binding, easyHolder)
+        binding.root.setOnClickListener(easyHolder.clickListener)
     }
 ```
 
@@ -117,9 +117,9 @@ adapter.enableSwipeAction(binding.recyclerView)
 ```
 
 ``` kotlin
-override fun onCreatingHolder(binding: InflaterCategoryBinding, baseHolder: BaseHolder) {
+override fun onCreatingHolder(binding: InflaterCategoryBinding, easyHolder: BaseHolder) {
         binding.llDelete.post {
-            baseHolder.setEnableSwipeToDelete(binding.llCategory, 0, binding.llDelete.measuredWidth)
+            easyHolder.setEnableSwipeToDelete(binding.llCategory, 0, binding.llDelete.measuredWidth)
         }
     }
     

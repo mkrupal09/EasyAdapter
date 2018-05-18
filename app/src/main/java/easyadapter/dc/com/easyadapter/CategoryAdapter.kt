@@ -9,7 +9,7 @@ import easyadapter.dc.com.library.EasyAdapter
 class CategoryAdapter :
         EasyAdapter<Category, InflaterCategoryBinding>(R.layout.inflater_category) {
 
-    override fun onCreatingHolder(binding: InflaterCategoryBinding, baseHolder: BaseHolder) {
+    override fun onCreatingHolder(binding: InflaterCategoryBinding, baseHolder: EasyHolder) {
         super.onCreatingHolder(binding, baseHolder)
         binding.cbCategory.setOnCheckedChangeListener(baseHolder.checkedChangeListener)
         binding.root.setOnClickListener(baseHolder.clickListener)

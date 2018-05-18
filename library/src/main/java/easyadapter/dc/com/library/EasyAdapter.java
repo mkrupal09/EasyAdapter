@@ -26,7 +26,7 @@ import java.util.List;
  * Created by HB on 20/3/18.
  */
 
-public abstract class EasyAdapter<M, B extends ViewDataBinding> extends RecyclerView.Adapter<EasyAdapter.BaseHolder> {
+public abstract class EasyAdapter<M, B extends ViewDataBinding> extends RecyclerView.Adapter<EasyAdapter.EasyHolder> {
 
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROGRESS = 0;
@@ -38,6 +38,7 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
     private int layout;
     private OnRecyclerViewItemClick<M> recyclerViewItemClick;
     private OnRecyclerViewItemCheckChange<M> recyclerViewItemCheckChange;
+    private OnDataUpdate<M> onDataUpdate;
 
 
     public interface OnRecyclerViewItemClick<M> {
@@ -57,13 +58,17 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
     }
 
     public interface OnFilter<M> {
-        boolean onFilterApply(@NonNull String text, @NonNull M model);
+        boolean onFilterApply(@NonNull Object filter, @NonNull M model);
 
         void onResult(ArrayList<M> data);
     }
 
     public interface OnLoadMoreListener {
         boolean onLoadMore();
+    }
+
+    public interface OnDataUpdate<M> {
+        public void onDataUpdate(ArrayList<M> data);
     }
 
 
@@ -75,7 +80,7 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
         this.layout = layout;
     }
 
-    public void onCreatingHolder(@NonNull B binding, @NonNull BaseHolder baseHolder) {
+    public void onCreatingHolder(@NonNull B binding, @NonNull EasyHolder holder) {
 
     }
 
@@ -141,43 +146,43 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
         notifyDataSetChanged();
     }
 
-    public void performFilter(String text, OnFilter<M> onFilter) {
-        if (text.length() <= 0) {
-            clearFilter();
+    public void performFilter(Object text, OnFilter<M> onFilter) {
+        ArrayList<M> result = new ArrayList<>();
+        if (text.toString().length() <= 0) {
+            result.addAll(temp);
+            /*clearFilter();*/
         } else {
-            data.clear();
+            result.clear();
             for (M d : temp) {
                 if (d instanceof OnFilter) {
                     onFilter = (OnFilter<M>) d;
                 }
                 if (onFilter != null) {
                     if (onFilter.onFilterApply(text, d)) {
-                        data.add(d);
+                        result.add(d);
                     }
                 }
             }
         }
         if (onFilter != null) {
-            onFilter.onResult(data);
+            onFilter.onResult(result);
         }
-        notifyDataSetChanged();
     }
 
-
     @Override
-    public final BaseHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public final EasyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == VIEW_ITEM) {
-            BaseHolder baseHolder = new BaseHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
+            EasyHolder easyHolder = new EasyHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                     layout, parent, false));
-            onCreatingHolder((B) baseHolder.binding, baseHolder);
-            baseHolder.setHolderItemClick(new OnHolderItemClick() {
+            onCreatingHolder((B) easyHolder.binding, easyHolder);
+            easyHolder.setHolderItemClick(new OnHolderItemClick() {
                 @Override
                 public void onHolderItemClick(View view, int position) {
                     if (position != -1)
                         onItemClick(view, data.get(position));
                 }
             });
-            baseHolder.setHolderItemCheckChange(new OnHolderItemCheckChange() {
+            easyHolder.setHolderItemCheckChange(new OnHolderItemCheckChange() {
                 @Override
                 public void onHolderItemCheckChange(View view, boolean isCheck, int position) {
                     if (position != -1) {
@@ -185,7 +190,7 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
                     }
                 }
             });
-            return baseHolder;
+            return easyHolder;
         } else {
             View view;
             if (loadMoreRes == -1) {
@@ -198,7 +203,7 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BaseHolder holder, int position) {
+    public void onBindViewHolder(@NonNull EasyHolder holder, int position) {
         if (!holder.isLoadingView) {
             onBind((B) holder.binding, data.get(position));
         }
@@ -314,7 +319,7 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
     }
 
 
-    public static class BaseHolder extends RecyclerView.ViewHolder implements SwipeOpenViewHolder {
+    public static class EasyHolder extends RecyclerView.ViewHolder implements SwipeOpenViewHolder {
 
         private ViewDataBinding binding;
         boolean isLoadingView;
@@ -323,13 +328,13 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
         public View swipeView;
         public int startViewSize = 0, endViewSize = 0;
 
-        public BaseHolder(ViewDataBinding itemView) {
+        public EasyHolder(ViewDataBinding itemView) {
             super(itemView.getRoot());
             binding = itemView;
 
         }
 
-        public BaseHolder(View view) {
+        public EasyHolder(View view) {
             super(view);
         }
 
@@ -402,7 +407,7 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
         }
     }
 
-    private class ProgressViewHolder extends BaseHolder {
+    private class ProgressViewHolder extends EasyHolder {
         ProgressViewHolder(View v) {
             super(v);
             isLoadingView = true;
@@ -419,17 +424,9 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
     }
 
 
-    public interface OnDataUpdate<M> {
-        public void onDataUpdate(ArrayList<M> data);
-    }
-
-    private OnDataUpdate<M> onDataUpdate;
-
     public void setOnDataUpdateListener(OnDataUpdate<M> onDataUpdate) {
         this.onDataUpdate = onDataUpdate;
     }
-
-
 
     private ObservableList.OnListChangedCallback<ObservableList<M>> dataChangeObs =
             new ObservableList.OnListChangedCallback<ObservableList<M>>() {
@@ -465,12 +462,20 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
         }
     }
 
-    public void disableDataObserver() {
+    public final void disableDataObserver() {
         data.removeOnListChangedCallback(dataChangeObs);
     }
 
-    public void enableDataObserver() {
+    public final void enableDataObserver() {
         data.addOnListChangedCallback(dataChangeObs);
+    }
+
+    public void clearAddAllNotify(ArrayList<M> data) {
+        disableDataObserver();
+        clear();
+        enableDataObserver();
+        addAll(data);
+        notifyDataSetChanged();
     }
 }
 

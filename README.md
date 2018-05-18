@@ -1,4 +1,5 @@
 # EasyAdapter (Support only with DataBinding)
+### Create your recyclerview adapter in just 3 lines.
 
 - Reduce Boilerplate code to create adapter and holder.
 - you can filter adapter without coding much.

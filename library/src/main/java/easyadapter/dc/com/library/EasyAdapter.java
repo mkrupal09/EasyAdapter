@@ -472,12 +472,9 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
 
     public void clearAddAllNotify(ArrayList<M> data) {
         disableDataObserver();
-        clear();
+        getData().clear();
         enableDataObserver();
         addAll(data);
         notifyDataSetChanged();
     }
 }
-
-
-

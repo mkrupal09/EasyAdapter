@@ -16,13 +16,13 @@ Grab via Maven:
 <dependency>
   <groupId>com.dc.easyadapter</groupId>
   <artifactId>easyadapter</artifactId>
-  <version>1.2</version>
+  <version>1.2.1</version>
   <type>pom</type>
 </dependency>
 ```
 or Gradle:
 ```groovy
-implementation 'com.dc.easyadapter:easyadapter:1.2'
+implementation 'com.dc.easyadapter:easyadapter:1.2.1'
 ```
 
 To enable data binding
@@ -55,7 +55,6 @@ apply plugin: 'kotlin-kapt' //Top at build.gradle
 
 ``` kotlin
 class CategoryAdapter() :EasyAdapter<Category, InflaterCategoryBinding>(R.layout.inflater_category) {
-
     override fun onBind(binding: InflaterCategoryBinding, model: Category) {
         binding.apply {
             tvName.text = model.name
@@ -69,7 +68,7 @@ class CategoryAdapter() :EasyAdapter<Category, InflaterCategoryBinding>(R.layout
 
 ``` kotlin
 //Override in Adapter
-override fun onCreatingHolder(binding: InflaterCategoryBinding, easyHolder: BaseHolder) {
+override fun onCreatingHolder(binding: InflaterCategoryBinding, easyHolder: EasyHolder) {
         super.onCreatingHolder(binding, easyHolder)
         binding.root.setOnClickListener(easyHolder.clickListener)
     }
@@ -83,16 +82,15 @@ adapter.setRecyclerViewItemClick { itemView, model ->
 
 #### 2) Filter (Search,etc..)
 ``` kotlin
-adapter.performFilter(text, object :EasyAdapter.OnFilter<Category>{
-                    override fun onFilterApply(text: String, model: Category): Boolean {
-                        if (model.name?.toLowerCase()?.contains(text.toLowerCase())!!) {
-                            return true //Return True if you want to include this model in this text search
-                        }
-                        return false //It will not include model if you return false
+adapter.performFilter(newText, object : EasyAdapter.OnFilter<Category> {
+                    override fun onFilterApply(filter: Any, model: Category): Boolean {
+                        return model.name.toLowerCase().contains(filter.toString().toLowerCase())
                     }
 
-                    override fun onResult(data: ArrayList<Category>?) {
-                        //Filtered List to do any operation
+                    override fun onFilterResult(filteredList: ArrayList<Category>?) {
+                        adapter.clear(false)
+                        adapter.addAll(filteredList, false)
+                        adapter.notifyDataSetChanged()
                     }
                 })
 
@@ -118,7 +116,7 @@ adapter.enableSwipeAction(binding.recyclerView)
 ```
 
 ``` kotlin
-override fun onCreatingHolder(binding: InflaterCategoryBinding, easyHolder: BaseHolder) {
+override fun onCreatingHolder(binding: InflaterCategoryBinding, easyHolder: EasyHolder) {
         binding.llDelete.post {
             easyHolder.setEnableSwipeToDelete(binding.llCategory, 0, binding.llDelete.measuredWidth)
         }
@@ -217,6 +215,16 @@ Use tools attribute for previewing Layout, so you don't need to always run appli
 ``` xml
 tools:text="@sample/filename" 
 ```
+
+### Version Change from x.x to 1.2.1
+
+Behaviour Changes
+- Changed BaseHolder to EasyHolder name
+- Adapter perform filter now has object type parameter for more generalize
+- Perform filter will not update data you need to manually update data.
+- clear() to clear(deepClean) to clean temporary data which is used for filter
+- addAll() to addAll(deepCopy) to add list as well as temporary list which is also used for filter
+- Minor bug fixed
 
 ### [Special Thanks to] <br />
 

@@ -51,16 +51,15 @@ class MainActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(newText: String): Boolean {
                 adapter.performFilter(newText, object : EasyAdapter.OnFilter<Category> {
+                    override fun onFilterApply(filter: Any, model: Category): Boolean {
+                        return model.name.toLowerCase().contains(filter.toString().toLowerCase())
+                    }
+
                     override fun onFilterResult(filteredList: ArrayList<Category>?) {
                         adapter.clear(false)
                         adapter.addAll(filteredList, false)
                         adapter.notifyDataSetChanged()
                     }
-
-                    override fun onFilterApply(filter: Any, model: Category): Boolean {
-                        return model.name.toLowerCase().contains(filter.toString().toLowerCase())
-                    }
-
                 })
                 return false
             }

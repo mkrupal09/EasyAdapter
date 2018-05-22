@@ -39,6 +39,7 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation project(':library')
     /*implementation 'com.dc.easyadapter:easyadapter:1.2'*/
+
 }
 repositories {
     mavenCentral()

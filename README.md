@@ -16,13 +16,13 @@ Grab via Maven:
 <dependency>
   <groupId>com.dc.easyadapter</groupId>
   <artifactId>easyadapter</artifactId>
-  <version>1.2.1</version>
+  <version>1.2.2</version>
   <type>pom</type>
 </dependency>
 ```
 or Gradle:
 ```groovy
-implementation 'com.dc.easyadapter:easyadapter:1.2.1'
+implementation 'com.dc.easyadapter:easyadapter:1.2.2'
 ```
 
 To enable data binding

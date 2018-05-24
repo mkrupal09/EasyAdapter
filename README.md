@@ -1,6 +1,8 @@
 # EasyAdapter (Support only with DataBinding)
 ### Create your recyclerview adapter in just 3 lines.
 
+[![N|Solid](https://img.shields.io/badge/Android%20Arsenal-EasyAdapter-brightgreen.svg)](https://android-arsenal.com/details/1/6950)
+
 - Reduce Boilerplate code to create adapter and holder.
 - you can filter adapter without coding much.
 - You wil have load more feature with progress bar at bottom.

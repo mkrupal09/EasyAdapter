@@ -186,8 +186,9 @@ No need to write ArrayAdapter or CustomArrayAdapter and you'll have lots of feat
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
             android:drawableRight="@android:drawable/arrow_down_float"
+            android:textColorHint="@android:color/black"
             android:padding="10dp"
-            android:text="Select Name" />
+            android:hint="Select Name" />
             
 ```
 

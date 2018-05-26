@@ -84,7 +84,9 @@ adapter.setRecyclerViewItemClick { itemView, model ->
 
 #### 2) Filter (Search,etc..)
 ``` kotlin
-adapter.performFilter(newText, object : EasyAdapter.OnFilter<Category> {
+adapter.performFilter(newText,filter)
+
+val filter= object : EasyAdapter.OnFilter<Category> {
                     override fun onFilterApply(filter: Any, model: Category): Boolean {
                         return model.name.toLowerCase().contains(filter.toString().toLowerCase())
                     }
@@ -94,7 +96,7 @@ adapter.performFilter(newText, object : EasyAdapter.OnFilter<Category> {
                         adapter.addAll(filteredList, false)
                         adapter.notifyDataSetChanged()
                     }
-                })
+                }
 
 ```
 
@@ -169,8 +171,7 @@ adapter.setOnDataUpdateListener {
 ```
 
 
-### Support with spinner
-
+Support with spinner
 -----------------------------
 
 We've Created EasySpinner where you can use your EasyAdapter <br />
@@ -195,6 +196,17 @@ Setting adapter to EasySpinner
 ``` kotlin
 binding.easyspinner.setAdapter(adapter)
 ```
+
+you can use spinner as autocomplete textview by using
+
+``` kotlin
+ binding.easyspinner.enableAutoCompleteMode { easySpinner, text ->
+            adapter.performFilter(text, filter)
+}
+        
+```
+
+********
 
 That's it... you will have spinner adapter.
 

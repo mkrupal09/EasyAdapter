@@ -3,7 +3,6 @@ package easyadapter.dc.com.easyadapter
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
 import android.widget.Toast
@@ -59,17 +58,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                adapter.performFilter(newText, object : EasyAdapter.OnFilter<Category> {
-                    override fun onFilterApply(filter: Any, model: Category): Boolean {
-                        return model.name.toLowerCase().contains(filter.toString().toLowerCase())
-                    }
-
-                    override fun onFilterResult(filteredList: ArrayList<Category>?) {
-                        adapter.clear(false)
-                        adapter.addAll(filteredList, false)
-                        adapter.notifyDataSetChanged()
-                    }
-                })
+                adapter.performFilter(newText, filter)
                 return false
             }
         })
@@ -83,7 +72,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this@MainActivity, isCheck.toString(), Toast.LENGTH_SHORT).show()
         }
         adapter.setRecyclerViewItemClick { view, model ->
-            binding.spRecyclerView.text = model.name
+            binding.spRecyclerView.setText(model.name)
             binding.spRecyclerView.hide()
         }
 
@@ -93,13 +82,27 @@ class MainActivity : AppCompatActivity() {
         //Observe Data change (so you can show no data view if there is no data to display)
         adapter.setOnDataUpdateListener {
             if (it.size <= 0) {
-                Toast.makeText(this@MainActivity, "No Data Found", Toast.LENGTH_SHORT).show()
+                /*Toast.makeText(this@MainActivity, "No Data Found", Toast.LENGTH_SHORT).show()*/
             }
         }
 
         //Experiment
         binding.spRecyclerView.setAdapter(adapter)
+        binding.spRecyclerView.enableAutoCompleteMode { easySpinner, text ->
+            adapter.performFilter(text, filter)
+        }
 
     }
 
+    val filter = object : EasyAdapter.OnFilter<Category> {
+        override fun onFilterApply(filter: Any, model: Category): Boolean {
+            return model.name.toLowerCase().contains(filter.toString().toLowerCase())
+        }
+
+        override fun onFilterResult(filteredList: ArrayList<Category>?) {
+            adapter.clear(false)
+            adapter.addAll(filteredList, false)
+            adapter.notifyDataSetChanged()
+        }
+    }
 }

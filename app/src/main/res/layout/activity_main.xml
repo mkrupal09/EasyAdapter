@@ -19,14 +19,17 @@
 
 
         <easyadapter.dc.com.library.EasySpinner
+            android:layout_margin="5dp"
+            android:paddingLeft="5dp"
             android:background="@drawable/rect_background"
             android:id="@+id/spRecyclerView"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:textColor="@android:color/black"
-            android:drawableRight="@android:drawable/arrow_down_float"
-            android:padding="10dp"
-            android:text="Select Name" />
+            android:drawableRight="@drawable/dropdown_arrow"
+            android:textColorHint="@android:color/black"
+            android:hint="@string/select_name" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"

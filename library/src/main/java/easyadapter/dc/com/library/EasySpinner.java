@@ -4,21 +4,31 @@ import android.content.Context;
 import android.databinding.ViewDataBinding;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.text.method.KeyListener;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.PopupWindow;
 
 /**
  * Created by HB on 25/5/18.
  */
-public class EasySpinner extends AppCompatTextView {
+public class EasySpinner extends AppCompatEditText {
 
     private PopupWindow popupWindow;
     private RecyclerView recyclerView;
+    private KeyListener keyListener;
+    private OnTextChange onTextChange;
+
+    public interface OnTextChange {
+        public void onTextChange(EasySpinner easySpinner, String text);
+    }
 
     public EasySpinner(Context context) {
         super(context);
@@ -36,6 +46,8 @@ public class EasySpinner extends AppCompatTextView {
     }
 
     private void init() {
+        keyListener = getKeyListener();
+        setKeyListener(null);
         popupWindow = buildPopupWindow();
         post(new Runnable() {
             @Override
@@ -59,6 +71,8 @@ public class EasySpinner extends AppCompatTextView {
 
     private PopupWindow buildPopupWindow() {
         PopupWindow popupWindow = new PopupWindow(getContext());
+        popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        popupWindow.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
         popupWindow.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), android.R.drawable.dialog_holo_light_frame));
         popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         recyclerView = new RecyclerView(getContext());
@@ -87,4 +101,33 @@ public class EasySpinner extends AppCompatTextView {
     public RecyclerView getRecyclerView() {
         return recyclerView;
     }
+
+
+    public void enableAutoCompleteMode(OnTextChange onTextChange) {
+        this.onTextChange = onTextChange;
+        setKeyListener(keyListener);
+        removeTextChangedListener(textWatcher);
+        addTextChangedListener(textWatcher);
+
+    }
+
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            onTextChange.onTextChange(EasySpinner.this, getText().toString());
+            show();
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    };
+
 }

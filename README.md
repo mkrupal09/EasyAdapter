@@ -171,7 +171,9 @@ adapter.setOnDataUpdateListener {
 
 ### Support with spinner
 
-We've Created EasySpinner where you can use your EasyAdapter 
+-----------------------------
+
+We've Created EasySpinner where you can use your EasyAdapter <br />
 No need to write ArrayAdapter or CustomArrayAdapter and you'll have lots of features from EasyAdapter.
 
 ``` xml

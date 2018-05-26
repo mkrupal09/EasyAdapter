@@ -168,6 +168,34 @@ adapter.setOnDataUpdateListener {
         }
 ```
 
+
+### Support with spinner
+
+We've Created EasySpinner where you can use your EasyAdapter 
+No need to write ArrayAdapter or CustomArrayAdapter and you'll have lots of features from EasyAdapter.
+
+``` xml
+
+  <easyadapter.dc.com.library.EasySpinner
+            android:background="@drawable/rect_background"
+            android:id="@+id/easyspinner"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:drawableRight="@android:drawable/arrow_down_float"
+            android:padding="10dp"
+            android:text="Select Name" />
+            
+```
+
+Setting adapter to EasySpinner
+
+``` kotlin
+binding.easyspinner.setAdapter(adapter)
+```
+
+That's it... you will have spinner adapter.
+
 #### Pro Tips
 
 

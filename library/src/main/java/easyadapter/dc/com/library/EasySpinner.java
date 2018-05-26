@@ -25,6 +25,13 @@ public class EasySpinner extends AppCompatEditText {
     private RecyclerView recyclerView;
     private KeyListener keyListener;
     private OnTextChange onTextChange;
+    private OnDropDownVisibilityListener onDropDownVisibilityListener;
+
+
+
+    public  interface OnDropDownVisibilityListener {
+        public void onDropDownVisibilityChange(boolean show);
+    }
 
     public interface OnTextChange {
         public void onTextChange(EasySpinner easySpinner, String text);
@@ -56,8 +63,20 @@ public class EasySpinner extends AppCompatEditText {
             }
         });
         setOnClickListener(onClickListener);
+        setOnFocusChangeListener(onFocusChangeListener);
     }
 
+
+    private View.OnFocusChangeListener onFocusChangeListener = new OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View view, boolean b) {
+            if (!b) {
+                hide();
+            } else {
+                show();
+            }
+        }
+    };
     private View.OnClickListener onClickListener = new OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -92,10 +111,14 @@ public class EasySpinner extends AppCompatEditText {
 
     public void show() {
         popupWindow.showAsDropDown(this, (int) getX(), 0);
+        if(onDropDownVisibilityListener!=null)
+            onDropDownVisibilityListener.onDropDownVisibilityChange(true);
     }
 
     public void hide() {
         popupWindow.dismiss();
+        if(onDropDownVisibilityListener!=null)
+            onDropDownVisibilityListener.onDropDownVisibilityChange(false);
     }
 
     public RecyclerView getRecyclerView() {
@@ -121,7 +144,6 @@ public class EasySpinner extends AppCompatEditText {
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             onTextChange.onTextChange(EasySpinner.this, getText().toString());
-            show();
         }
 
         @Override
@@ -130,4 +152,8 @@ public class EasySpinner extends AppCompatEditText {
         }
     };
 
+
+    public void setOnDropDownVisibilityListener(OnDropDownVisibilityListener onDropDownVisibilityListener) {
+        this.onDropDownVisibilityListener = onDropDownVisibilityListener;
+    }
 }

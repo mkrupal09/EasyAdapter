@@ -11,12 +11,12 @@ class CategoryAdapter :
 
     override fun onCreatingHolder(binding: InflaterCategoryBinding, baseHolder: EasyHolder) {
         super.onCreatingHolder(binding, baseHolder)
-
         binding.cbCategory.setOnCheckedChangeListener(baseHolder.checkedChangeListener)
         binding.root.setOnClickListener(baseHolder.clickListener)
         binding.llDelete.post {
             baseHolder.setEnableSwipeToDelete(binding.llCategory, 0, binding.llDelete.measuredWidth)
         }
+
     }
 
 
@@ -26,5 +26,6 @@ class CategoryAdapter :
             tvName.isSelected = model.isSelected
         }
     }
+
 
 }

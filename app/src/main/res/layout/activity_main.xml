@@ -1,25 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <android.support.v7.widget.SearchView
             android:id="@+id/searchView"
-            app:queryHint="Search Name"
-            app:iconifiedByDefault="false"
-            app:searchIcon="@null"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            app:iconifiedByDefault="false"
+            app:queryHint="Search Name"
+            app:searchIcon="@null" />
+
+
+        <easyadapter.dc.com.library.EasySpinner
+            android:background="@drawable/rect_background"
+            android:id="@+id/spRecyclerView"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:drawableRight="@android:drawable/arrow_down_float"
+            android:padding="10dp"
+            android:text="Select Name" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="visible"
             tools:listitem="@layout/inflater_category" />
 
     </LinearLayout>

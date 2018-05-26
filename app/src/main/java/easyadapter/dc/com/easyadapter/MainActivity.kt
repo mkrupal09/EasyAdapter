@@ -3,6 +3,7 @@ package easyadapter.dc.com.easyadapter
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
 import android.widget.Toast
@@ -18,6 +19,14 @@ class MainActivity : AppCompatActivity() {
     private val temp: List<Category>
         get() {
             val temp = ArrayList<Category>()
+            temp.add(Category.createDummy("Krupal"))
+            temp.add(Category.createDummy("Dhruv"))
+            temp.add(Category.createDummy("Aagam"))
+            temp.add(Category.createDummy("Krupal"))
+            temp.add(Category.createDummy("Dhruv"))
+            temp.add(Category.createDummy("Aagam"))
+            temp.add(Category.createDummy("Krupal"))
+            temp.add(Category.createDummy("Dhruv"))
             temp.add(Category.createDummy("Krupal"))
             temp.add(Category.createDummy("Dhruv"))
             temp.add(Category.createDummy("Aagam"))
@@ -73,6 +82,10 @@ class MainActivity : AppCompatActivity() {
         adapter.setRecyclerViewItemCheckChange { view, isCheck, model ->
             Toast.makeText(this@MainActivity, isCheck.toString(), Toast.LENGTH_SHORT).show()
         }
+        adapter.setRecyclerViewItemClick { view, model ->
+            binding.spRecyclerView.text = model.name
+            binding.spRecyclerView.hide()
+        }
 
         //Swipe Action
         adapter.enableSwipeAction(binding.recyclerView)
@@ -83,6 +96,10 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, "No Data Found", Toast.LENGTH_SHORT).show()
             }
         }
+
+        //Experiment
+        binding.spRecyclerView.setAdapter(adapter)
+
     }
 
 }

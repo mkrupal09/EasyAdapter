@@ -2,7 +2,7 @@
 ### Create your recyclerview adapter in just 3 lines.
 
 [![N|Solid](https://img.shields.io/badge/Android%20Arsenal-EasyAdapter-brightgreen.svg)](https://android-arsenal.com/details/1/6950)
-[![Download](https://api.bintray.com/packages/mkrupal09/maven/EasyAdapter/images/download.svg)](https://bintray.com/mkrupal09/maven/EasyAdapter/_latestVersion)
+[![Download](https://api.bintray.com/packages/mkrupal09/EasyAdapter/EasyAdapter/images/download.svg) ](https://bintray.com/mkrupal09/EasyAdapter/EasyAdapter/_latestVersion)
 
 - Reduce Boilerplate code to create adapter and holder.
 - you can filter adapter without coding much.

@@ -4,39 +4,44 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
-    <LinearLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <android.support.v7.widget.SearchView
-            android:id="@+id/searchView"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:iconifiedByDefault="false"
-            app:queryHint="Search Name"
-            app:searchIcon="@null" />
+            android:orientation="vertical">
+
+            <android.support.v7.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:iconifiedByDefault="false"
+                app:queryHint="Search Name"
+                app:searchIcon="@null" />
 
 
-        <easyadapter.dc.com.library.EasySpinner
-            android:layout_margin="5dp"
-            android:paddingLeft="5dp"
-            android:background="@drawable/rect_background"
-            android:id="@+id/spRecyclerView"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:textColor="@android:color/black"
-            android:drawableRight="@drawable/dropdown_arrow"
-            android:textColorHint="@android:color/black"
-            android:hint="@string/select_name" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                tools:listitem="@layout/inflater_category" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
-            tools:listitem="@layout/inflater_category" />
+            <easyadapter.dc.com.library.EasySpinner
+                android:id="@+id/spRecyclerView"
+                android:layout_width="270dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/rect_background"
+                android:drawableRight="@drawable/dropdown_arrow"
+                android:gravity="center_vertical"
+                android:hint="@string/select_name"
+                android:paddingLeft="5dp"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/black" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
-    </LinearLayout>
 </layout>

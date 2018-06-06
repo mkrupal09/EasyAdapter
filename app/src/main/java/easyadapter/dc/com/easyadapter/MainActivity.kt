@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
 
         //Load More
         adapter.setLoadMoreRes(R.layout.layout_progress)
-        adapter.setOnLoadMoreListener(binding.recyclerView) { true }
+        /*adapter.setOnLoadMoreListener(binding.recyclerView) { true }*/
 
         //Item View Event callback
         adapter.setRecyclerViewItemCheckChange { view, isCheck, model ->
@@ -88,9 +88,9 @@ class MainActivity : AppCompatActivity() {
 
         //Experiment
         binding.spRecyclerView.setAdapter(adapter)
-        binding.spRecyclerView.enableAutoCompleteMode { easySpinner, text ->
+        /*binding.spRecyclerView.enableAutoCompleteMode { easySpinner, text ->
             adapter.performFilter(text, filter)
-        }
+        }*/
 
     }
 

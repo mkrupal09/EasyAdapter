@@ -2,7 +2,7 @@ package easyadapter.dc.com.library;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.databinding.ObservableArrayList;
+
 import android.databinding.ObservableList;
 import android.databinding.ViewDataBinding;
 import android.support.annotation.LayoutRes;
@@ -20,6 +20,7 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -73,12 +74,19 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
 
 
     public EasyAdapter(@LayoutRes int layout) {
-        data = new ObservableArrayList<>();
+        data = new ObservableArrayList<M>()
+        {
+            @Override
+            public boolean addAll(Collection<? extends M> collection) {
+                return super.addAll(collection);
+            }
+        };
         temp = new ObservableArrayList<>();
         temp.addAll(data);
         data.addOnListChangedCallback(dataChangeObs);
         this.layout = layout;
     }
+
 
     public void onCreatingHolder(@NonNull B binding, @NonNull EasyHolder holder) {
 

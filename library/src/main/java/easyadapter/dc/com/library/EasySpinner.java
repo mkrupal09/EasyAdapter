@@ -11,9 +11,14 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.KeyListener;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 
 /**
@@ -28,8 +33,7 @@ public class EasySpinner extends AppCompatEditText {
     private OnDropDownVisibilityListener onDropDownVisibilityListener;
 
 
-
-    public  interface OnDropDownVisibilityListener {
+    public interface OnDropDownVisibilityListener {
         public void onDropDownVisibilityChange(boolean show);
     }
 
@@ -90,6 +94,7 @@ public class EasySpinner extends AppCompatEditText {
 
     private PopupWindow buildPopupWindow() {
         PopupWindow popupWindow = new PopupWindow(getContext());
+        popupWindow.setOutsideTouchable(true);
         popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         popupWindow.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
         popupWindow.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), android.R.drawable.dialog_holo_light_frame));
@@ -109,7 +114,42 @@ public class EasySpinner extends AppCompatEditText {
         recyclerView.setAdapter(adapter);
     }
 
+
+   /* public void show() {
+        if (getKeyListener() == null) {
+            hideKeyboard();
+        }
+
+
+        *//*popupWindow.showAsDropDown(this, (int) getX(), 0);*//*
+
+
+        int[] values = new int[2];
+        getLocationInWindow(values);
+        int positionOfIcon = values[1];
+
+        //Get the height of 2/3rd of the height of the screen
+        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+        int height = (displayMetrics.heightPixels * 2) / 3;
+
+        //If the position of menu icon is in the bottom 2/3rd part of the screen then we provide menu height as offset  but in negative as we want to open our menu to the top
+        if (positionOfIcon > height) {
+            popupWindow.showAsDropDown(this, 0, -height);
+        } else {
+            popupWindow.showAsDropDown(this, 0, 0);
+        }
+
+        if (onDropDownVisibilityListener != null)
+            onDropDownVisibilityListener.onDropDownVisibilityChange(true);
+
+
+
+    }*/
+
     public void show() {
+        if (getKeyListener() == null) {
+            hideKeyboard();
+        }
         popupWindow.showAsDropDown(this, (int) getX(), 0);
         if(onDropDownVisibilityListener!=null)
             onDropDownVisibilityListener.onDropDownVisibilityChange(true);
@@ -117,7 +157,7 @@ public class EasySpinner extends AppCompatEditText {
 
     public void hide() {
         popupWindow.dismiss();
-        if(onDropDownVisibilityListener!=null)
+        if (onDropDownVisibilityListener != null)
             onDropDownVisibilityListener.onDropDownVisibilityChange(false);
     }
 
@@ -155,5 +195,28 @@ public class EasySpinner extends AppCompatEditText {
 
     public void setOnDropDownVisibilityListener(OnDropDownVisibilityListener onDropDownVisibilityListener) {
         this.onDropDownVisibilityListener = onDropDownVisibilityListener;
+    }
+
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (popupWindow != null && popupWindow.isShowing()) {
+            popupWindow.dismiss();
+        }
+    }
+
+    @Override
+    public boolean onKeyPreIme(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && popupWindow.isShowing()) {
+            hide();
+            return true;
+        }
+        return super.onKeyPreIme(keyCode, event);
+    }
+
+    public void hideKeyboard() {
+        InputMethodManager inputManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(this.getWindowToken(), 0);
     }
 }

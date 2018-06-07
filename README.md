@@ -50,8 +50,15 @@ apply plugin: 'kotlin-kapt' //Top at build.gradle
 ```
 
 
-
-
+## How?
+``` java 
+adapter = new EasyAdapter<Category, InflaterCategoryBinding>(R.layout.inflater_category) {
+            @Override
+            public void onBind(@NonNull InflaterCategoryBinding binding, @NonNull Category model) {
+                binding.tvName.setText(model.name);
+            }
+        }
+```
 
 ## Usage
 

@@ -50,6 +50,11 @@ apply plugin: 'kotlin-kapt' //Top at build.gradle
 ```
 
 
+<img src="https://github.com/mkrupal09/EasyAdapter/blob/master/images/recyclerview-adapter0.png" width = "264" height = "464"/>
+<img src="https://github.com/mkrupal09/EasyAdapter/blob/master/images/recyclerview-adapter1.png" width = "264" height = "464"/>
+<img src="https://github.com/mkrupal09/EasyAdapter/blob/master/images/recyclerview-adapter3.png" width = "264" height = "464"/>
+<img src="https://github.com/mkrupal09/EasyAdapter/blob/master/images/recyclerview-adapter4.png" width = "264" height = "464"/>
+
 ## How?
 ``` java 
 adapter = new EasyAdapter<Category, InflaterCategoryBinding>(R.layout.inflater_category) {

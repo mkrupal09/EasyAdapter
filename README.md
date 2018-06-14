@@ -50,7 +50,10 @@ apply plugin: 'kotlin-kapt' //Top at build.gradle
 ```
 
 
-<img src="https://github.com/mkrupal09/EasyAdapter/blob/master/images/recyclerview-adapter0.png" width = "200" height = "400"/><img src="https://github.com/mkrupal09/EasyAdapter/blob/master/images/recyclerview-adapter1.png" width = "200" height = "400"/><img src="https://github.com/mkrupal09/EasyAdapter/blob/master/images/recyclerview-adapter3.png" width = "200" height = "400"/><img src="https://github.com/mkrupal09/EasyAdapter/blob/master/images/recyclerview-adapter4.png" width = "200" height = "400"/>
+<img src="https://github.com/mkrupal09/EasyAdapter/blob/master/images/recyclerview-adapter0.png" width = "220" height = "400"/>
+<img src="https://github.com/mkrupal09/EasyAdapter/blob/master/images/recyclerview-adapter1.png" width = "220" height = "400"/>
+<img src="https://github.com/mkrupal09/EasyAdapter/blob/master/images/recyclerview-adapter3.png" width = "220" height = "400"/>
+<img src="https://github.com/mkrupal09/EasyAdapter/blob/master/images/recyclerview-adapter4.png" width = "220" height = "400"/>
 
 ## How?
 ``` java 

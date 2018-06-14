@@ -3,4 +3,8 @@
     <declare-styleable name="EasySpinner">
         <attr name="layout" format="reference" />
     </declare-styleable>
+    <attr name="errorColor" format="reference"/>
+    <declare-styleable name="error">
+        <attr name="state_error" format="boolean"/>
+    </declare-styleable>
 </resources>

@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: CategoryAdapter
+    private lateinit var spinnerAdapter: CategoryAdapter
 
     private val temp: List<Category>
         get() {
@@ -24,16 +25,11 @@ class MainActivity : AppCompatActivity() {
             temp.add(Category.createDummy("Krupal"))
             temp.add(Category.createDummy("Dhruv"))
             temp.add(Category.createDummy("Aagam"))
-            temp.add(Category.createDummy("Krupal"))
-            temp.add(Category.createDummy("Dhruv"))
-            temp.add(Category.createDummy("Krupal"))
-            temp.add(Category.createDummy("Dhruv"))
             temp.add(Category.createDummy("Aagam"))
-            temp.add(Category.createDummy("Krupal"))
-            temp.add(Category.createDummy("Dhruv"))
             temp.add(Category.createDummy("Aagam"))
-            temp.add(Category.createDummy("Krupal"))
-            temp.add(Category.createDummy("Dhruv"))
+            temp.add(Category.createDummy("Aagam"))
+            temp.add(Category.createDummy("Aagam"))
+            temp.add(Category.createDummy("Aagam"))
             return temp
         }
 
@@ -41,7 +37,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+        adapterExample()
+        spinnerExample()
+    }
 
+    private fun adapterExample() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = CategoryAdapter()
         binding.recyclerView.adapter = adapter
@@ -71,10 +71,7 @@ class MainActivity : AppCompatActivity() {
         adapter.setRecyclerViewItemCheckChange { view, isCheck, model ->
             Toast.makeText(this@MainActivity, isCheck.toString(), Toast.LENGTH_SHORT).show()
         }
-        adapter.setRecyclerViewItemClick { view, model ->
-            binding.spRecyclerView.setText(model.name)
-            binding.spRecyclerView.hide()
-        }
+
 
         //Swipe Action
         adapter.enableSwipeAction(binding.recyclerView)
@@ -85,13 +82,20 @@ class MainActivity : AppCompatActivity() {
                 /*Toast.makeText(this@MainActivity, "No Data Found", Toast.LENGTH_SHORT).show()*/
             }
         }
+    }
 
-        //Experiment
-        binding.spRecyclerView.setAdapter(adapter)
+    private fun spinnerExample() {
+        spinnerAdapter = CategoryAdapter()
+        spinnerAdapter.addAll(temp.subList(0, 2), true)
+        spinnerAdapter.notifyDataSetChanged()
+        spinnerAdapter.setRecyclerViewItemClick { view, model ->
+            binding.spRecyclerView.setText(model.name)
+            binding.spRecyclerView.hide()
+        }
+        binding.spRecyclerView.setAdapter(spinnerAdapter)
         /*binding.spRecyclerView.enableAutoCompleteMode { easySpinner, text ->
             adapter.performFilter(text, filter)
         }*/
-
     }
 
     val filter = object : EasyAdapter.OnFilter<Category> {

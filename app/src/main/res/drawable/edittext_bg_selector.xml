@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- custom error state drawable -->
+    <item android:drawable="@drawable/error" app:state_error="true"/>
+
+    <!-- Do whatever you want for all other states -->
+    <item android:drawable="@android:drawable/editbox_background_normal"/>
+</selector>

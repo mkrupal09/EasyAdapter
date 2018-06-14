@@ -2,11 +2,10 @@ package easyadapter.dc.com.library;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
-
-import android.databinding.ObservableList;
 import android.databinding.ViewDataBinding;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,13 +33,12 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
     private boolean loading = false;
     private boolean isLoadMoreEnabled = false;
     private int loadMoreRes = R.layout.layout_load_more;
-    private final ObservableArrayList<M> data;
-    private final ObservableArrayList<M> temp;
+    private final ArrayList<M> data;
+    private final ArrayList<M> temp;
     private int layout;
     private OnRecyclerViewItemClick<M> recyclerViewItemClick;
     private OnRecyclerViewItemCheckChange<M> recyclerViewItemCheckChange;
     private OnDataUpdate<M> onDataUpdate;
-
 
     public interface OnRecyclerViewItemClick<M> {
         void onRecyclerViewItemClick(View view, M model);
@@ -74,19 +72,12 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
 
 
     public EasyAdapter(@LayoutRes int layout) {
-        data = new ObservableArrayList<M>()
-        {
-            @Override
-            public boolean addAll(Collection<? extends M> collection) {
-                return super.addAll(collection);
-            }
-        };
-        temp = new ObservableArrayList<>();
+        data = new ArrayList<>();
+        temp = new ArrayList<>();
         temp.addAll(data);
-        data.addOnListChangedCallback(dataChangeObs);
+        enableDataObserver();
         this.layout = layout;
     }
-
 
     public void onCreatingHolder(@NonNull B binding, @NonNull EasyHolder holder) {
 
@@ -118,6 +109,7 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
         temp.remove(model);
         notifyDataSetChanged();
     }
+
 
     private void clearFilter() {
         data.clear();
@@ -450,34 +442,6 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
         return this;
     }
 
-    private ObservableList.OnListChangedCallback<ObservableList<M>> dataChangeObs =
-            new ObservableList.OnListChangedCallback<ObservableList<M>>() {
-                @Override
-                public void onChanged(ObservableList<M> sender) {
-                    onDataUpdate();
-                }
-
-                @Override
-                public void onItemRangeChanged(ObservableList<M> sender, int positionStart, int itemCount) {
-                    onDataUpdate();
-                }
-
-                @Override
-                public void onItemRangeInserted(ObservableList<M> sender, int positionStart, int itemCount) {
-                    onDataUpdate();
-                }
-
-                @Override
-                public void onItemRangeMoved(ObservableList<M> sender, int fromPosition, int toPosition, int itemCount) {
-                    onDataUpdate();
-                }
-
-                @Override
-                public void onItemRangeRemoved(ObservableList<M> sender, int positionStart, int itemCount) {
-                    onDataUpdate();
-                }
-            };
-
     private void onDataUpdate() {
         if (onDataUpdate != null) {
             onDataUpdate.onDataUpdate(getData());
@@ -485,12 +449,50 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
     }
 
     public final void disableDataObserver() {
-        data.removeOnListChangedCallback(dataChangeObs);
+        unregisterAdapterDataObserver(dataChangeObs);
     }
 
     public final void enableDataObserver() {
-        data.addOnListChangedCallback(dataChangeObs);
+        registerAdapterDataObserver(dataChangeObs);
     }
+
+    private RecyclerView.AdapterDataObserver dataChangeObs = new RecyclerView.AdapterDataObserver() {
+        @Override
+        public void onChanged() {
+            super.onChanged();
+            onDataUpdate();
+        }
+
+        @Override
+        public void onItemRangeChanged(int positionStart, int itemCount) {
+            super.onItemRangeChanged(positionStart, itemCount);
+            onDataUpdate();
+        }
+
+        @Override
+        public void onItemRangeChanged(int positionStart, int itemCount, @Nullable Object payload) {
+            super.onItemRangeChanged(positionStart, itemCount, payload);
+            onDataUpdate();
+        }
+
+        @Override
+        public void onItemRangeInserted(int positionStart, int itemCount) {
+            super.onItemRangeInserted(positionStart, itemCount);
+            onDataUpdate();
+        }
+
+        @Override
+        public void onItemRangeRemoved(int positionStart, int itemCount) {
+            super.onItemRangeRemoved(positionStart, itemCount);
+            onDataUpdate();
+        }
+
+        @Override
+        public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
+            super.onItemRangeMoved(fromPosition, toPosition, itemCount);
+            onDataUpdate();
+        }
+    };
 
 
 }

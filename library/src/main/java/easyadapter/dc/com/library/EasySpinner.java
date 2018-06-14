@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 
 /**
@@ -59,6 +58,7 @@ public class EasySpinner extends AppCompatEditText {
     private void init() {
         keyListener = getKeyListener();
         setKeyListener(null);
+        setInputType(0);
         popupWindow = buildPopupWindow();
         post(new Runnable() {
             @Override
@@ -115,14 +115,10 @@ public class EasySpinner extends AppCompatEditText {
     }
 
 
-   /* public void show() {
+    /*public void show() {
         if (getKeyListener() == null) {
             hideKeyboard();
         }
-
-
-        *//*popupWindow.showAsDropDown(this, (int) getX(), 0);*//*
-
 
         int[] values = new int[2];
         getLocationInWindow(values);
@@ -132,17 +128,16 @@ public class EasySpinner extends AppCompatEditText {
         DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
         int height = (displayMetrics.heightPixels * 2) / 3;
 
-        //If the position of menu icon is in the bottom 2/3rd part of the screen then we provide menu height as offset  but in negative as we want to open our menu to the top
+        //If the position of menu icon is in the bottom 2/3rd part of the screen then we provide menu height as offset
+        // but in negative as we want to open our menu to the top
         if (positionOfIcon > height) {
-            popupWindow.showAsDropDown(this, 0, -height);
+            popupWindow.showAsDropDown(this, -getWidth(), (int) getY());
         } else {
-            popupWindow.showAsDropDown(this, 0, 0);
+            popupWindow.showAtLocation(this, Gravity.TOP, -getWidth(), 500);
         }
 
         if (onDropDownVisibilityListener != null)
             onDropDownVisibilityListener.onDropDownVisibilityChange(true);
-
-
 
     }*/
 
@@ -151,7 +146,7 @@ public class EasySpinner extends AppCompatEditText {
             hideKeyboard();
         }
         popupWindow.showAsDropDown(this, (int) getX(), 0);
-        if(onDropDownVisibilityListener!=null)
+        if (onDropDownVisibilityListener != null)
             onDropDownVisibilityListener.onDropDownVisibilityChange(true);
     }
 
@@ -193,6 +188,11 @@ public class EasySpinner extends AppCompatEditText {
     };
 
 
+    /**
+     * Callback when drop down is visible or hide
+     *
+     * @param onDropDownVisibilityListener
+     */
     public void setOnDropDownVisibilityListener(OnDropDownVisibilityListener onDropDownVisibilityListener) {
         this.onDropDownVisibilityListener = onDropDownVisibilityListener;
     }
@@ -217,6 +217,7 @@ public class EasySpinner extends AppCompatEditText {
 
     public void hideKeyboard() {
         InputMethodManager inputManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputManager.hideSoftInputFromWindow(this.getWindowToken(), 0);
+        if (inputManager != null)
+            inputManager.hideSoftInputFromWindow(this.getWindowToken(), 0);
     }
 }

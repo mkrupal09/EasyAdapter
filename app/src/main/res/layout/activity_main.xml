@@ -29,7 +29,7 @@
                 android:background="@drawable/rect_background"
                 android:drawableRight="@drawable/dropdown_arrow"
                 android:gravity="center_vertical"
-                android:hint="@string/select_name"
+                android:hint="@string/select_category"
                 android:paddingLeft="5dp"
                 android:textColor="@android:color/black"
                 android:textColorHint="@android:color/black" />

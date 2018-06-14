@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">EasyAdapter</string>
     <string name="select_name">Select Name</string>
+    <string name="select_category">Select Category</string>
 </resources>

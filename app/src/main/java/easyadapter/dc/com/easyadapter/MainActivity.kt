@@ -8,7 +8,6 @@ import android.support.v7.widget.SearchView
 import android.widget.Toast
 import easyadapter.dc.com.easyadapter.databinding.ActivityMainBinding
 import easyadapter.dc.com.library.EasyAdapter
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,17 +18,14 @@ class MainActivity : AppCompatActivity() {
     private val temp: List<Category>
         get() {
             val temp = ArrayList<Category>()
-            temp.add(Category.createDummy("Krupal"))
+            temp.add(Category.createDummy("Krupal Mehta"))
+            temp.add(Category.createDummy("Aagam Mehta"))
+            temp.add(Category.createDummy("Anand Patel"))
+            temp.add(Category.createDummy("Sagar Panchal"))
+            temp.add(Category.createDummy("Pankaj Sharma"))
+            temp.add(Category.createDummy("Darshak jani"))
+            temp.add(Category.createDummy("Sanket Chauhan"))
             temp.add(Category.createDummy("Dhruv"))
-            temp.add(Category.createDummy("Aagam"))
-            temp.add(Category.createDummy("Krupal"))
-            temp.add(Category.createDummy("Dhruv"))
-            temp.add(Category.createDummy("Aagam"))
-            temp.add(Category.createDummy("Aagam"))
-            temp.add(Category.createDummy("Aagam"))
-            temp.add(Category.createDummy("Aagam"))
-            temp.add(Category.createDummy("Aagam"))
-            temp.add(Category.createDummy("Aagam"))
             return temp
         }
 
@@ -47,7 +43,6 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.adapter = adapter
 
         adapter.addAll(temp, true)
-        adapter.add(Category.createDummy("Last Row"))
         adapter.notifyDataSetChanged()
 
 
@@ -86,7 +81,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun spinnerExample() {
         spinnerAdapter = CategoryAdapter()
-        spinnerAdapter.addAll(temp.subList(0, 2), true)
+        val list = ArrayList<Category>()
+        list.add(Category.createDummy("Android Developer"))
+        list.add(Category.createDummy("Java Developer"))
+        list.add(Category.createDummy("Python Developer"))
+        list.add(Category.createDummy("Php Developer"))
+        spinnerAdapter.addAll(list, true)
         spinnerAdapter.notifyDataSetChanged()
         spinnerAdapter.setRecyclerViewItemClick { view, model ->
             binding.spRecyclerView.setText(model.name)
@@ -110,3 +110,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+

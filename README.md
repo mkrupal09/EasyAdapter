@@ -273,15 +273,8 @@ Use tools attribute for previewing Layout, so you don't need to always run appli
 tools:text="@sample/filename" 
 ```
 
-### Version Change from x.x to 1.2.1
+[ Changelog ](https://github.com/mkrupal09/EasyAdapter/releases)
 
-Behaviour Changes
-- Changed BaseHolder to EasyHolder name
-- Adapter perform filter now has object type parameter for more generalize
-- Perform filter will not update data you need to manually update data.
-- clear() to clear(deepClean) to clean temporary data which is used for filter
-- addAll() to addAll(deepCopy) to add list as well as temporary list which is also used for filter
-- Minor bug fixed
 
 ### [Special Thanks to] <br />
 

@@ -11,7 +11,7 @@
 - includes View Events callbacks (ClickEvent,CheckChangeEvent)
 - and many more..
 
-<img alt="RecyclerView Adapter Library" src="https://github.com/mkrupal09/EasyAdapter/blob/master/images/recyclerview-adapter0.png" width = "200" height = "320" hspace="5"/><img alt="RecyclerView Adapter Library" src="https://github.com/mkrupal09/EasyAdapter/blob/master/images/recyclerview-adapter1.png" width = "200" height = "320" hspace="5"/><img alt="RecyclerView Adapter Library" src="https://github.com/mkrupal09/EasyAdapter/blob/master/images/recyclerview-adapter3.png" width = "200" height = "320" hspace="5"/><img alt="RecyclerView Adapter Library" src="https://github.com/mkrupal09/EasyAdapter/blob/master/images/recyclerview-adapter4.png" width = "200" height = "320" hspace="5"/>
+<img alt="RecyclerView Adapter Library" src="https://github.com/mkrupal09/EasyAdapter/blob/master/images/recyclerview-adapter0.png" width = "210" height = "320" hspace="5"/><img alt="RecyclerView Adapter Library" src="https://github.com/mkrupal09/EasyAdapter/blob/master/images/recyclerview-adapter1.png" width = "210" height = "320" hspace="5"/><img alt="RecyclerView Adapter Library" src="https://github.com/mkrupal09/EasyAdapter/blob/master/images/recyclerview-adapter3.png" width = "210" height = "320" hspace="5"/><img alt="RecyclerView Adapter Library" src="https://github.com/mkrupal09/EasyAdapter/blob/master/images/recyclerview-adapter4.png" width = "210" height = "320" hspace="5"/>
 
 Download
 --------

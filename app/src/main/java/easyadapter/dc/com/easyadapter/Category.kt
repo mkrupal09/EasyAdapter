@@ -16,7 +16,6 @@ public class Category : Serializable {
     var image: String = ""
     var isSelected: Boolean = false
     var test=false;
-    var xyz=false;
     companion object {
         val BUN_SEL_CATEGORY_LIST = "SEL_CATEGORY_LIST"
         const val SEND_OBJECT = "category"

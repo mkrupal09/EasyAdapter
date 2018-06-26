@@ -108,7 +108,8 @@ public class EasySpinner extends AppCompatEditText {
         adapter.setOnDataUpdateListener(new EasyAdapter.OnDataUpdate<M>() {
             @Override
             public void onDataUpdate(ArrayList<M> data) {
-                popupWindow.update(EasySpinner.this, getWidth(), getRecyclerViewHeight());
+                if (popupWindow != null)
+                    popupWindow.update(EasySpinner.this, getWidth(), getRecyclerViewHeight());
             }
         });
     }

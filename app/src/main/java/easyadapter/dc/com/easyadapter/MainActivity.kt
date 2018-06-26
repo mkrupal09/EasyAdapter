@@ -93,9 +93,10 @@ class MainActivity : AppCompatActivity() {
             binding.spRecyclerView.hide()
         }
         binding.spRecyclerView.setAdapter(spinnerAdapter)
-        /*binding.spRecyclerView.enableAutoCompleteMode { easySpinner, text ->
-            adapter.performFilter(text, filter)
-        }*/
+
+        binding.spRecyclerView.enableAutoCompleteMode { easySpinner, text ->
+            spinnerAdapter.performFilter(text, spinnerFilter)
+        }
     }
 
     val filter = object : EasyAdapter.OnFilter<Category> {
@@ -107,6 +108,18 @@ class MainActivity : AppCompatActivity() {
             adapter.clear(false)
             adapter.addAll(filteredList, false)
             adapter.notifyDataSetChanged()
+        }
+    }
+
+    private val spinnerFilter = object : EasyAdapter.OnFilter<Category> {
+        override fun onFilterApply(filter: Any, model: Category): Boolean {
+            return model.name.toLowerCase().contains(filter.toString().toLowerCase())
+        }
+
+        override fun onFilterResult(filteredList: ArrayList<Category>?) {
+            spinnerAdapter.clear(false)
+            spinnerAdapter.addAll(filteredList, false)
+            spinnerAdapter.notifyDataSetChanged()
         }
     }
 

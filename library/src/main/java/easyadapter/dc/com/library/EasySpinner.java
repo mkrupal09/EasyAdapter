@@ -11,8 +11,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.KeyListener;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -120,32 +118,40 @@ public class EasySpinner extends AppCompatEditText {
             hideKeyboard();
         }
 
-        int[] values = new int[2];
-        getLocationInWindow(values);
-        int positionOfIcon = values[1];
-
-        //Get the height of 2/3rd of the height of the screen
-        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
-        int height = (displayMetrics.heightPixels * 2) / 3;
-
-        //If the position of menu icon is in the bottom 2/3rd part of the screen then we provide menu height as offset
-        // but in negative as we want to open our menu to the top
-        if (positionOfIcon > height) {
-            popupWindow.showAsDropDown(this, -getWidth(), (int) getY());
-        } else {
-            popupWindow.showAtLocation(this, Gravity.TOP, -getWidth(), 500);
-        }
+        changeLocation();
 
         if (onDropDownVisibilityListener != null)
             onDropDownVisibilityListener.onDropDownVisibilityChange(true);
 
     }*/
 
+  /*  private void changeLocation() {
+        popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        int[] values = new int[2];
+        getLocationInWindow(values);
+        int positionOfIcon = values[1];
+
+        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+        int height = (displayMetrics.heightPixels * 2) / 3;
+
+        *//*if (positionOfIcon > height) {
+            popupWindow.showAtLocation(this, Gravity.CENTER_HORIZONTAL, -getWidth(), getHeight());
+        } else {
+            popupWindow.showAtLocation(this, Gravity.CENTER_HORIZONTAL, -getWidth(), -getHeight());
+        }*//*
+
+        if (positionOfIcon > height) {
+            PopupWindowCompat.showAsDropDown(popupWindow, this, 0, -800, Gravity.CENTER_HORIZONTAL);
+        } else {
+            PopupWindowCompat.showAsDropDown(popupWindow, this, 0, 0, Gravity.CENTER_HORIZONTAL);
+        }
+    }*/
+
     public void show() {
         if (getKeyListener() == null) {
             hideKeyboard();
         }
-        popupWindow.showAsDropDown(this, (int) getX(), 0);
+        popupWindow.showAsDropDown(this);
         if (onDropDownVisibilityListener != null)
             onDropDownVisibilityListener.onDropDownVisibilityChange(true);
     }
@@ -164,9 +170,8 @@ public class EasySpinner extends AppCompatEditText {
     public void enableAutoCompleteMode(OnTextChange onTextChange) {
         this.onTextChange = onTextChange;
         setKeyListener(keyListener);
-        removeTextChangedListener(textWatcher);
-        addTextChangedListener(textWatcher);
-
+        stopAutoCompletObserve();
+        startAutoCompleteObserve();
     }
 
     private TextWatcher textWatcher = new TextWatcher() {
@@ -179,6 +184,7 @@ public class EasySpinner extends AppCompatEditText {
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             onTextChange.onTextChange(EasySpinner.this, getText().toString());
+            /*changeLocation();*/
         }
 
         @Override
@@ -219,5 +225,13 @@ public class EasySpinner extends AppCompatEditText {
         InputMethodManager inputManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (inputManager != null)
             inputManager.hideSoftInputFromWindow(this.getWindowToken(), 0);
+    }
+
+    public void stopAutoCompletObserve() {
+        removeTextChangedListener(textWatcher);
+    }
+
+    public void startAutoCompleteObserve() {
+        addTextChangedListener(textWatcher);
     }
 }

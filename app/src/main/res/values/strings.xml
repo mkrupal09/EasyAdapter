@@ -2,4 +2,13 @@
     <string name="app_name">EasyAdapter</string>
     <string name="select_name">Select Name</string>
     <string name="select_category">Select Category</string>
+    <string-array name="names">
+        <item>Krupal</item>
+        <item>Dhruv</item>
+        <item>Mehta</item>
+        <item>Patel</item>
+        <item>Aagu</item>
+        <item>Virti</item>
+        <item>Googoo</item>
+    </string-array>
 </resources>

@@ -21,6 +21,14 @@
                 app:queryHint="Search Name"
                 app:searchIcon="@null" />
 
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                tools:listitem="@layout/inflater_category" />
             <easyadapter.dc.com.library.EasySpinner
                 android:id="@+id/spRecyclerView"
                 android:layout_width="match_parent"
@@ -34,12 +42,6 @@
                 android:textColor="@android:color/black"
                 android:textColorHint="@android:color/black" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="visible"
-                tools:listitem="@layout/inflater_category" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </layout>

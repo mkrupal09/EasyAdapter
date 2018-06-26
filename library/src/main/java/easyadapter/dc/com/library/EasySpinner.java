@@ -219,7 +219,10 @@ public class EasySpinner extends AppCompatEditText {
 
     public int getRecyclerViewHeight() {
         recyclerView.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
-        return Math.min(recyclerView.getMeasuredHeight(), listSize);
+        int recyclerViewHeight = recyclerView.getMeasuredHeight();
+        if (recyclerViewHeight > 0)
+            recyclerViewHeight += 30;
+        return Math.min(recyclerViewHeight, listSize);
     }
 }
 

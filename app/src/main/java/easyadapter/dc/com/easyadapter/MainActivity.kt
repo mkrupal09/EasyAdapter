@@ -98,9 +98,9 @@ class MainActivity : AppCompatActivity() {
         }
         binding.spRecyclerView.setAdapter(spinnerAdapter)
 
-        /*binding.spRecyclerView.enableAutoCompleteMode { easySpinner, text ->
+        binding.spRecyclerView.enableAutoCompleteMode { easySpinner, text ->
             spinnerAdapter.performFilter(text, spinnerFilter)
-        }*/
+        }
     }
 
     val filter = object : EasyAdapter.OnFilter<Category> {

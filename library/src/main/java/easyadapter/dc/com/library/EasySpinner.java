@@ -13,10 +13,11 @@ import android.text.method.KeyListener;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.PopupWindow;
+
+import java.util.ArrayList;
 
 /**
  * Created by HB on 25/5/18.
@@ -28,6 +29,7 @@ public class EasySpinner extends AppCompatEditText {
     private KeyListener keyListener;
     private OnTextChange onTextChange;
     private OnDropDownVisibilityListener onDropDownVisibilityListener;
+    private int listSize = 500;
 
 
     public interface OnDropDownVisibilityListener {
@@ -57,13 +59,8 @@ public class EasySpinner extends AppCompatEditText {
         keyListener = getKeyListener();
         setKeyListener(null);
         setInputType(0);
-        popupWindow = buildPopupWindow();
-        post(new Runnable() {
-            @Override
-            public void run() {
-                popupWindow.setWidth(getWidth());
-            }
-        });
+        recyclerView = new RecyclerView(getContext());
+
         setOnClickListener(onClickListener);
         setOnFocusChangeListener(onFocusChangeListener);
     }
@@ -90,14 +87,12 @@ public class EasySpinner extends AppCompatEditText {
         }
     };
 
-    private PopupWindow buildPopupWindow() {
-        PopupWindow popupWindow = new PopupWindow(getContext());
+    private PopupWindow buildPopupWindow(int width, int height) {
+        PopupWindow popupWindow = new PopupWindow(recyclerView, width, height);
         popupWindow.setOutsideTouchable(true);
         popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         popupWindow.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
         popupWindow.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), android.R.drawable.dialog_holo_light_frame));
-        popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
-        recyclerView = new RecyclerView(getContext());
         popupWindow.setContentView(recyclerView);
         return popupWindow;
     }
@@ -110,51 +105,36 @@ public class EasySpinner extends AppCompatEditText {
     public <M, B extends ViewDataBinding> void setAdapter(RecyclerView.LayoutManager layoutManager, EasyAdapter<M, B> adapter) {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+        adapter.setOnDataUpdateListener(new EasyAdapter.OnDataUpdate<M>() {
+            @Override
+            public void onDataUpdate(ArrayList<M> data) {
+                popupWindow.update(EasySpinner.this, getWidth(), getRecyclerViewHeight());
+            }
+        });
     }
 
 
-    /*public void show() {
+    public void show() {
         if (getKeyListener() == null) {
             hideKeyboard();
         }
-
-        changeLocation();
-
+        popupWindow = buildPopupWindow(getWidth(), getRecyclerViewHeight());
+        /*popupWindow.setAnimationStyle(R.style.Popwindow_Anim_Down);*/
+        popupWindow.showAsDropDown(this, 0, 0);
         if (onDropDownVisibilityListener != null)
             onDropDownVisibilityListener.onDropDownVisibilityChange(true);
 
-    }*/
+    }
 
-  /*  private void changeLocation() {
-        popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
-        int[] values = new int[2];
-        getLocationInWindow(values);
-        int positionOfIcon = values[1];
 
-        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
-        int height = (displayMetrics.heightPixels * 2) / 3;
-
-        *//*if (positionOfIcon > height) {
-            popupWindow.showAtLocation(this, Gravity.CENTER_HORIZONTAL, -getWidth(), getHeight());
-        } else {
-            popupWindow.showAtLocation(this, Gravity.CENTER_HORIZONTAL, -getWidth(), -getHeight());
-        }*//*
-
-        if (positionOfIcon > height) {
-            PopupWindowCompat.showAsDropDown(popupWindow, this, 0, -800, Gravity.CENTER_HORIZONTAL);
-        } else {
-            PopupWindowCompat.showAsDropDown(popupWindow, this, 0, 0, Gravity.CENTER_HORIZONTAL);
-        }
-    }*/
-
-    public void show() {
+   /* public void show() {
         if (getKeyListener() == null) {
             hideKeyboard();
         }
         popupWindow.showAsDropDown(this);
         if (onDropDownVisibilityListener != null)
             onDropDownVisibilityListener.onDropDownVisibilityChange(true);
-    }
+    }*/
 
     public void hide() {
         popupWindow.dismiss();
@@ -170,7 +150,7 @@ public class EasySpinner extends AppCompatEditText {
     public void enableAutoCompleteMode(OnTextChange onTextChange) {
         this.onTextChange = onTextChange;
         setKeyListener(keyListener);
-        stopAutoCompletObserve();
+        stopAutoCompleteObserve();
         startAutoCompleteObserve();
     }
 
@@ -227,11 +207,16 @@ public class EasySpinner extends AppCompatEditText {
             inputManager.hideSoftInputFromWindow(this.getWindowToken(), 0);
     }
 
-    public void stopAutoCompletObserve() {
+    public void stopAutoCompleteObserve() {
         removeTextChangedListener(textWatcher);
     }
 
     public void startAutoCompleteObserve() {
         addTextChangedListener(textWatcher);
     }
+
+    public int getRecyclerViewHeight() {
+        return Math.min(recyclerView.getAdapter().getItemCount() * 200, listSize);
+    }
 }
+

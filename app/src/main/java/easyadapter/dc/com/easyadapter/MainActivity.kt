@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
 
         adapterExample()
         spinnerExample()
+
     }
 
     private fun adapterExample() {
@@ -84,8 +85,8 @@ class MainActivity : AppCompatActivity() {
         val list = ArrayList<Category>()
         list.add(Category.createDummy("Android Developer"))
         list.add(Category.createDummy("Java Developer"))
-        list.add(Category.createDummy("Python Developer"))
-        list.add(Category.createDummy("Php Developer"))
+        /*list.add(Category.createDummy("Python Developer"))
+        list.add(Category.createDummy("Php Developer"))*/
         spinnerAdapter.addAll(list, true)
         spinnerAdapter.notifyDataSetChanged()
         spinnerAdapter.setRecyclerViewItemClick { view, model ->

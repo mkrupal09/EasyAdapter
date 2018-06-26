@@ -3,6 +3,7 @@ package easyadapter.dc.com.easyadapter
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
 import android.widget.Toast
@@ -85,8 +86,10 @@ class MainActivity : AppCompatActivity() {
         val list = ArrayList<Category>()
         list.add(Category.createDummy("Android Developer"))
         list.add(Category.createDummy("Java Developer"))
-        /*list.add(Category.createDummy("Python Developer"))
-        list.add(Category.createDummy("Php Developer"))*/
+        list.add(Category.createDummy("Python Developer"))
+        list.add(Category.createDummy("Php Developer"))
+        list.add(Category.createDummy("Python Developer"))
+        list.add(Category.createDummy("Php Developer"))
         spinnerAdapter.addAll(list, true)
         spinnerAdapter.notifyDataSetChanged()
         spinnerAdapter.setRecyclerViewItemClick { view, model ->
@@ -95,9 +98,9 @@ class MainActivity : AppCompatActivity() {
         }
         binding.spRecyclerView.setAdapter(spinnerAdapter)
 
-        binding.spRecyclerView.enableAutoCompleteMode { easySpinner, text ->
+        /*binding.spRecyclerView.enableAutoCompleteMode { easySpinner, text ->
             spinnerAdapter.performFilter(text, spinnerFilter)
-        }
+        }*/
     }
 
     val filter = object : EasyAdapter.OnFilter<Category> {

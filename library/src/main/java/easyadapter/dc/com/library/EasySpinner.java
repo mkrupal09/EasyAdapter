@@ -108,8 +108,9 @@ public class EasySpinner extends AppCompatEditText {
         adapter.setOnDataUpdateListener(new EasyAdapter.OnDataUpdate<M>() {
             @Override
             public void onDataUpdate(ArrayList<M> data) {
-                if (popupWindow != null)
+                if (popupWindow != null) {
                     popupWindow.update(EasySpinner.this, getWidth(), getRecyclerViewHeight());
+                }
             }
         });
     }
@@ -217,7 +218,8 @@ public class EasySpinner extends AppCompatEditText {
     }
 
     public int getRecyclerViewHeight() {
-        return Math.min(recyclerView.getAdapter().getItemCount() * 200, listSize);
+        recyclerView.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
+        return Math.min(recyclerView.getMeasuredHeight(), listSize);
     }
 }
 

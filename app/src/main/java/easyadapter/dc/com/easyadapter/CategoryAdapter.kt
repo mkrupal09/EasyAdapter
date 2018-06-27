@@ -19,13 +19,10 @@ class CategoryAdapter :
 
     }
 
-
     override fun onBind(binding: InflaterCategoryBinding, model: Category) {
         binding.apply {
             tvName.text = model.name
             tvName.isSelected = model.isSelected
         }
     }
-
-
 }

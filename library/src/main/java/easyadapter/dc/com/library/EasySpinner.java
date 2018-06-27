@@ -105,7 +105,7 @@ public class EasySpinner extends AppCompatEditText {
     public <M, B extends ViewDataBinding> void setAdapter(RecyclerView.LayoutManager layoutManager, EasyAdapter<M, B> adapter) {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-        adapter.setOnDataUpdateListener(new EasyAdapter.OnDataUpdate<M>() {
+        adapter.addOnDataUpdateListener(new EasyAdapter.OnDataUpdate<M>() {
             @Override
             public void onDataUpdate(ArrayList<M> data) {
                 if (popupWindow != null) {

@@ -19,7 +19,6 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -38,7 +37,7 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
     private int layout;
     private OnRecyclerViewItemClick<M> recyclerViewItemClick;
     private OnRecyclerViewItemCheckChange<M> recyclerViewItemCheckChange;
-    private OnDataUpdate<M> onDataUpdate;
+    private ArrayList<OnDataUpdate<M>> onDataUpdateArrayList;
 
     public interface OnRecyclerViewItemClick<M> {
         void onRecyclerViewItemClick(View view, M model);
@@ -77,6 +76,7 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
         temp.addAll(data);
         enableDataObserver();
         this.layout = layout;
+        onDataUpdateArrayList = new ArrayList<>();
     }
 
     public void onCreatingHolder(@NonNull B binding, @NonNull EasyHolder holder) {
@@ -284,7 +284,7 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
                     super.onScrolled(recyclerView, dx, dy);
 
                     int totalItemCount = layoutManager.getItemCount();
-                    int lastVisibleItem = ((LinearLayoutManager) layoutManager).findLastVisibleItemPosition();
+                    int lastVisibleItem = 0;
 
                     if (layoutManager instanceof StaggeredGridLayoutManager) {
                         int[] lastVisibleItemPositions = ((StaggeredGridLayoutManager) layoutManager).findLastVisibleItemPositions(null);
@@ -301,7 +301,7 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
                                 boolean previous = loading;
                                 loading = onLoadMoreListener.onLoadMore();
                                 if (loading != previous) {
-                                    if (previous == false && loading) {
+                                    if (!previous) {
                                         notifyItemInserted(getItemCount() - 1);
                                     } else if (previous == true && loading == false) {
                                         notifyItemRemoved(getItemCount() - 1);
@@ -437,13 +437,13 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
     }
 
 
-    public EasyAdapter<M, B> setOnDataUpdateListener(OnDataUpdate<M> onDataUpdate) {
-        this.onDataUpdate = onDataUpdate;
+    public EasyAdapter<M, B> addOnDataUpdateListener(OnDataUpdate<M> onDataUpdate) {
+        this.onDataUpdateArrayList.add(onDataUpdate);
         return this;
     }
 
     private void onDataUpdate() {
-        if (onDataUpdate != null) {
+        for (OnDataUpdate<M> onDataUpdate : onDataUpdateArrayList) {
             onDataUpdate.onDataUpdate(getData());
         }
     }
@@ -493,6 +493,5 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
             onDataUpdate();
         }
     };
-
 
 }

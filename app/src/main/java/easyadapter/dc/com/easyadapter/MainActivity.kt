@@ -2,13 +2,15 @@ package easyadapter.dc.com.easyadapter
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
 import android.widget.Toast
 import easyadapter.dc.com.easyadapter.databinding.ActivityMainBinding
 import easyadapter.dc.com.library.EasyAdapter
+import easyadapter.dc.com.library.EasySpinner
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var adapter: CategoryAdapter
     private lateinit var spinnerAdapter: CategoryAdapter
 
-    private val temp: List<Category>
+    private val names: List<Category>
         get() {
             val temp = ArrayList<Category>()
             temp.add(Category.createDummy("Krupal Mehta"))
@@ -27,24 +29,42 @@ class MainActivity : AppCompatActivity() {
             temp.add(Category.createDummy("Darshak jani"))
             temp.add(Category.createDummy("Sanket Chauhan"))
             temp.add(Category.createDummy("Dhruv"))
+            temp.add(Category.createDummy("Sagar Panchal"))
+            temp.add(Category.createDummy("Pankaj Sharma"))
+            temp.add(Category.createDummy("Darshak jani"))
+            temp.add(Category.createDummy("Sanket Chauhan"))
+            temp.add(Category.createDummy("Dhruv"))
             return temp
+        }
+
+    private val categories: List<Category>
+        get() {
+            val list = ArrayList<Category>()
+            list.add(Category.createDummy("Android Developer"))
+            list.add(Category.createDummy("Java Developer"))
+            list.add(Category.createDummy("Python Developer"))
+            list.add(Category.createDummy("Php Developer"))
+            list.add(Category.createDummy("Python Developer"))
+            list.add(Category.createDummy("Php Developer"))
+            return list
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.recyclerView.isNestedScrollingEnabled = false
 
         adapterExample()
         spinnerExample()
-
     }
 
     private fun adapterExample() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = CategoryAdapter()
+        adapter = CategoryAdapter(true)
         binding.recyclerView.adapter = adapter
 
-        adapter.addAll(temp, true)
+        adapter.addAll(names, true)
         adapter.notifyDataSetChanged()
 
 
@@ -74,7 +94,7 @@ class MainActivity : AppCompatActivity() {
         adapter.enableSwipeAction(binding.recyclerView)
 
         //Observe Data change (so you can show no data view if there is no data to display)
-        adapter.setOnDataUpdateListener {
+        adapter.addOnDataUpdateListener {
             if (it.size <= 0) {
                 /*Toast.makeText(this@MainActivity, "No Data Found", Toast.LENGTH_SHORT).show()*/
             }
@@ -82,22 +102,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun spinnerExample() {
-        spinnerAdapter = CategoryAdapter()
-        val list = ArrayList<Category>()
-        list.add(Category.createDummy("Android Developer"))
-        list.add(Category.createDummy("Java Developer"))
-        list.add(Category.createDummy("Python Developer"))
-        list.add(Category.createDummy("Php Developer"))
-        list.add(Category.createDummy("Python Developer"))
-        list.add(Category.createDummy("Php Developer"))
-        spinnerAdapter.addAll(list, true)
+        //Spinner Configuration
+
+        binding.spRecyclerView.setPopupBackground(ContextCompat.getDrawable(this, R.drawable.rect_background))
+        binding.spRecyclerView.setPopupType(EasySpinner.POPUP_TYPE_DIALOG)
+        binding.spRecyclerView.setPopupWidth(800)
+        binding.spRecyclerView.setAnimation(R.style.Popwindow_Anim_Down)
+
+        //Adapter Configuration
+        spinnerAdapter = CategoryAdapter(false)
+        spinnerAdapter.addAll(categories, true)
         spinnerAdapter.notifyDataSetChanged()
         spinnerAdapter.setRecyclerViewItemClick { view, model ->
             binding.spRecyclerView.setText(model.name)
             binding.spRecyclerView.hide()
         }
-        binding.spRecyclerView.setAdapter(spinnerAdapter)
 
+        binding.spRecyclerView.setAdapter(spinnerAdapter)
         binding.spRecyclerView.enableAutoCompleteMode { easySpinner, text ->
             spinnerAdapter.performFilter(text, spinnerFilter)
         }
@@ -126,6 +147,5 @@ class MainActivity : AppCompatActivity() {
             spinnerAdapter.notifyDataSetChanged()
         }
     }
-
 }
 

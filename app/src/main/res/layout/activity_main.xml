@@ -4,44 +4,51 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
-    <!--<android.support.v4.widget.NestedScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">-->
+        android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <android.support.v7.widget.SearchView
-            android:id="@+id/searchView"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:iconifiedByDefault="false"
-            app:queryHint="Search Name"
-            app:searchIcon="@null" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.SearchView
+                    android:id="@+id/searchView"
+                    android:background="@drawable/rect_background"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    app:iconifiedByDefault="false"
+                    app:queryHint="Search Name"
+                    app:searchIcon="@null" />
+
+                <easyadapter.dc.com.library.EasySpinner
+                    android:id="@+id/spRecyclerView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rect_background"
+                    android:drawableRight="@drawable/dropdown_arrow"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="5dp"
+                    android:hint="Search Category"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@android:color/black" />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                tools:listitem="@layout/inflater_category" />
 
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:visibility="visible"
-            tools:listitem="@layout/inflater_category" />
-
-        <easyadapter.dc.com.library.EasySpinner
-            android:id="@+id/spRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@drawable/rect_background"
-            android:drawableRight="@drawable/dropdown_arrow"
-            android:gravity="center_vertical"
-            android:hint="@string/select_category"
-            android:paddingLeft="5dp"
-            android:textColor="@android:color/black"
-            android:textColorHint="@android:color/black" />
-
-    </LinearLayout>
-    <!--</android.support.v4.widget.NestedScrollView>-->
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 </layout>

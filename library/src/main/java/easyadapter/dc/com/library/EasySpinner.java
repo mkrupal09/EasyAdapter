@@ -279,7 +279,6 @@ public class EasySpinner extends AppCompatEditText {
             onDropDownVisibilityListener.onDropDownVisibilityChange(false);
 
         hideKeyboard(this);
-        hideKeyboard(popupWindow.getContentView().findViewById(R.id.edtHint));
     }
 
     public RecyclerView getRecyclerView() {

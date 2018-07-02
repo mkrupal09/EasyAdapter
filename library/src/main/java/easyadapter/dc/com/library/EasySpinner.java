@@ -8,6 +8,7 @@ import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.PopupWindowCompat;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -70,43 +71,53 @@ public class EasySpinner extends AppCompatEditText {
         init();
     }
 
+    private EditText editTextInternal;
 
     private void init() {
         //Make Edit text as TextView First
         keyListener = getKeyListener();
         makeEditable(false);
 
+        addTextChangedListener(textWatcher);
+
         recyclerView = new RecyclerView(getContext());
+        recyclerView.setNestedScrollingEnabled(false);
         linearLayout = new LinearLayout(getContext());
         linearLayout.setOrientation(LinearLayout.VERTICAL);
 
-        final EditText editText = new EditText(getContext());
-        editText.setHint(getHint());
-        editText.setId(R.id.edtHint);
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
+        editTextInternal = new EditText(getContext());
+        editTextInternal.setHint(getHint());
+        editTextInternal.setId(R.id.edtHint);
+        /*editTextInternal.addTextChangedListener(textWatcherInternal);*/
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                onTextChange(editText);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        linearLayout.addView(editText);
+        linearLayout.addView(editTextInternal);
         linearLayout.addView(recyclerView);
 
         setPopupBackground(ContextCompat.getDrawable(getContext(), android.R.drawable.dialog_holo_light_frame));
         setOnClickListener(onClickListener);
         setOnFocusChangeListener(onFocusChangeListener);
     }
+
+
+    private TextWatcher textWatcherInternal = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            onTextChange(editTextInternal);
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
 
     public void setPopupBackground(Drawable drawable) {
         background = drawable;
@@ -137,10 +148,12 @@ public class EasySpinner extends AppCompatEditText {
 
     public void stopAutoCompleteObserve() {
         removeTextChangedListener(textWatcher);
+        /*editTextInternal.removeTextChangedListener(textWatcherInternal);*/
     }
 
     public void startAutoCompleteObserve() {
         addTextChangedListener(textWatcher);
+        /*editTextInternal.addTextChangedListener(textWatcherInternal);*/
     }
 
 
@@ -236,7 +249,8 @@ public class EasySpinner extends AppCompatEditText {
 
         if (popupType == POPUP_TYPE_DROP_DOWN) {
             //show as dropdown
-            popupWindow.showAsDropDown(this, 0, 0);
+            PopupWindowCompat.setOverlapAnchor(popupWindow, false);
+            PopupWindowCompat.showAsDropDown(popupWindow, this, 0, 0, Gravity.NO_GRAVITY);
             popupWindow.update(this, getPopupWidth(), getListHeight());
         } else {
             //Show as dialog
@@ -247,6 +261,16 @@ public class EasySpinner extends AppCompatEditText {
         if (onDropDownVisibilityListener != null)
             onDropDownVisibilityListener.onDropDownVisibilityChange(true);
     }
+
+    /*private int[] location() {
+
+        final int measuredH = getListHeight();
+
+        final int[] anchorLocation = new int[2];
+        getLocationInWindow(anchorLocation);
+        int x = anchorLocation[0];
+        int y = anchorLocation[1] + getHeight();
+    }*/
 
     public static void dimPopupWindow(PopupWindow popupWindow) {
         View container;

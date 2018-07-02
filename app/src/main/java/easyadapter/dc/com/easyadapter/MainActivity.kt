@@ -105,7 +105,7 @@ class MainActivity : AppCompatActivity() {
         //Spinner Configuration
 
         binding.spRecyclerView.setPopupBackground(ContextCompat.getDrawable(this, R.drawable.rect_background))
-        binding.spRecyclerView.setPopupType(EasySpinner.POPUP_TYPE_DIALOG)
+        binding.spRecyclerView.setPopupType(EasySpinner.POPUP_TYPE_DROP_DOWN)
         binding.spRecyclerView.setPopupWidth(800)
         binding.spRecyclerView.setAnimation(R.style.Popwindow_Anim_Down)
 

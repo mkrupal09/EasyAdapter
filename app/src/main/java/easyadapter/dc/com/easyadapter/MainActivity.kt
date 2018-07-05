@@ -122,6 +122,10 @@ class MainActivity : AppCompatActivity() {
         binding.spRecyclerView.enableAutoCompleteMode { easySpinner, text ->
             spinnerAdapter.performFilter(text, spinnerFilter)
         }
+        binding.spRecyclerView.setOnDropDownVisibilityListener {
+            if(it)
+            binding.spRecyclerView.setText("")
+        }
     }
 
     val filter = object : EasyAdapter.OnFilter<Category> {

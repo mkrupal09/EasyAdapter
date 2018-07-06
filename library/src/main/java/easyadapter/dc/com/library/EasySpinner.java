@@ -18,6 +18,7 @@ import android.text.method.KeyListener;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -71,7 +72,7 @@ public class EasySpinner extends AppCompatEditText {
         init();
     }
 
-    private EditText editTextInternal;
+    /*private EditText editTextInternal;*/
 
     private void init() {
         //Make Edit text as TextView First
@@ -86,13 +87,13 @@ public class EasySpinner extends AppCompatEditText {
         linearLayout.setOrientation(LinearLayout.VERTICAL);
 
 
-        editTextInternal = new EditText(getContext());
+       /* editTextInternal = new EditText(getContext());
         editTextInternal.setHint(getHint());
-        editTextInternal.setId(R.id.edtHint);
+        editTextInternal.setId(R.id.edtHint);*/
         /*editTextInternal.addTextChangedListener(textWatcherInternal);*/
 
 
-        linearLayout.addView(editTextInternal);
+        /*linearLayout.addView(editTextInternal);*/
         linearLayout.addView(recyclerView);
 
         setPopupBackground(ContextCompat.getDrawable(getContext(), android.R.drawable.dialog_holo_light_frame));
@@ -101,7 +102,7 @@ public class EasySpinner extends AppCompatEditText {
     }
 
 
-    private TextWatcher textWatcherInternal = new TextWatcher() {
+    /*private TextWatcher textWatcherInternal = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -118,7 +119,7 @@ public class EasySpinner extends AppCompatEditText {
 
         }
     };
-
+*/
     public void setPopupBackground(Drawable drawable) {
         background = drawable;
     }
@@ -167,11 +168,11 @@ public class EasySpinner extends AppCompatEditText {
         adapter.addOnDataUpdateListener(new EasyAdapter.OnDataUpdate<M>() {
             @Override
             public void onDataUpdate(ArrayList<M> data) {
-                if (popupWindow != null) {
+                /*if (popupWindow != null) {
                     if (popupType == POPUP_TYPE_DROP_DOWN) {
                         popupWindow.update(EasySpinner.this, getPopupWidth(), getListHeight());
                     }
-                }
+                }*/
             }
         });
     }
@@ -192,8 +193,6 @@ public class EasySpinner extends AppCompatEditText {
         public void onClick(View view) {
             if (!isShowing()) {
                 show();
-            } else {
-                hide();
             }
         }
     };
@@ -217,13 +216,27 @@ public class EasySpinner extends AppCompatEditText {
     }
 
     private PopupWindow buildPopupWindow(int width, int height) {
-        PopupWindow popupWindow = new PopupWindow(recyclerView, width, height);
+        final PopupWindow popupWindow = new PopupWindow(recyclerView, width, height);
         popupWindow.setAnimationStyle(animation);
         popupWindow.setOutsideTouchable(true);
         popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         popupWindow.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
         popupWindow.setBackgroundDrawable(background);
         popupWindow.setContentView(linearLayout);
+        /*popupWindow.setTouchInterceptor(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int[] loca=new int[2];
+                getLocationInWindow(loca);
+                int starty=loca[1]-getHeight();
+                int endy=loca[1];
+                if (event.getAction() == MotionEvent.ACTION_OUTSIDE && event.getY()<starty && event.getY()>endy) {
+                    popupWindow.dismiss();
+                    return true;
+                }
+                return false;
+              }
+        });*/
         return popupWindow;
     }
 
@@ -242,20 +255,20 @@ public class EasySpinner extends AppCompatEditText {
 
         popupWindow = buildPopupWindow(getPopupWidth(), getListHeight());
 
-        EditText edtHint = popupWindow.getContentView().findViewById(R.id.edtHint);
+       /* EditText edtHint = popupWindow.getContentView().findViewById(R.id.edtHint);
         edtHint.setVisibility(onTextChange != null &&
                 popupType == POPUP_TYPE_DIALOG ? View.VISIBLE : View.GONE);
-        edtHint.setText("");
+        edtHint.setText("");*/
 
         if (popupType == POPUP_TYPE_DROP_DOWN) {
             //show as dropdown
             PopupWindowCompat.setOverlapAnchor(popupWindow, false);
             PopupWindowCompat.showAsDropDown(popupWindow, this, 0, 0, Gravity.NO_GRAVITY);
-            popupWindow.update(this, getPopupWidth(), getListHeight());
+           /* popupWindow.update(this, getPopupWidth(), getListHeight());*/
         } else {
             //Show as dialog
-            popupWindow.showAtLocation(this, Gravity.CENTER, 0, 0);
-            dimPopupWindow(popupWindow);
+            /*popupWindow.showAtLocation(this, Gravity.CENTER, 0, 0);
+            dimPopupWindow(popupWindow);*/
         }
 
         if (onDropDownVisibilityListener != null)
@@ -348,12 +361,12 @@ public class EasySpinner extends AppCompatEditText {
 
 
     private int getListHeight() {
-        recyclerView.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
+        /*recyclerView.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
 
         int recyclerViewHeight = recyclerView.getMeasuredHeight();
         if (recyclerViewHeight > 0)
-            recyclerViewHeight += background.getIntrinsicHeight() / 2;
-        return Math.min(recyclerViewHeight, MAX_SIZE);
+            recyclerViewHeight += background.getIntrinsicHeight() / 2;*/
+        return MAX_SIZE;
     }
 
     private int getPopupWidth() {

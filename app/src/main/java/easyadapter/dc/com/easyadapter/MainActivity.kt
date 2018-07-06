@@ -46,6 +46,12 @@ class MainActivity : AppCompatActivity() {
             list.add(Category.createDummy("Php Developer"))
             list.add(Category.createDummy("Python Developer"))
             list.add(Category.createDummy("Php Developer"))
+            list.addAll(list)
+            list.addAll(list)
+            list.addAll(list)
+            list.addAll(list)
+            list.addAll(list)
+
             return list
         }
 
@@ -123,8 +129,8 @@ class MainActivity : AppCompatActivity() {
             spinnerAdapter.performFilter(text, spinnerFilter)
         }
         binding.spRecyclerView.setOnDropDownVisibilityListener {
-            if(it)
-            binding.spRecyclerView.setText("")
+           /* if(it)
+            binding.spRecyclerView.setText("")*/
         }
     }
 

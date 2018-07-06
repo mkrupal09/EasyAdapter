@@ -50,10 +50,6 @@
                     android:textColorHint="@android:color/black" />
             </LinearLayout>
 
-            <View
-                android:background="@color/colorPrimary"
-                android:layout_width="match_parent"
-                android:layout_height="600dp"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </layout>

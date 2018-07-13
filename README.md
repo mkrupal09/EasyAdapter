@@ -5,6 +5,8 @@
 
 [![N|Solid](https://img.shields.io/badge/Android%20Arsenal-EasyAdapter-brightgreen.svg)](https://android-arsenal.com/details/1/6950)
 [![Download](https://api.bintray.com/packages/mkrupal09/EasyAdapter/EasyAdapter/images/download.svg) ](https://bintray.com/mkrupal09/EasyAdapter/EasyAdapter/_latestVersion)
+[![Circle
+CI](https://circleci.com/gh/mkrupal09/EasyAdapter.svg?style=svg)](https://circleci.com/gh/mkrupal09/EasyAdapter)
 
 - Reduce Boilerplate code to create adapter and holder.
 - you can filter adapter without coding much.

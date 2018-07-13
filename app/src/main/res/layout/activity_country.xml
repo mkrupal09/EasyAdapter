@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <easyadapter.dc.com.library.EasyAutoComplete
+            android:id="@+id/autocompleteCountry"
+            android:background="@drawable/rect_background"
+            android:drawableRight="@drawable/dropdown_arrow"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:hint="Country" />
+
+        <easyadapter.dc.com.library.EasyAutoComplete
+            android:layout_marginTop="5dp"
+            android:id="@+id/autocompleteState"
+            android:layout_width="match_parent"
+            android:drawableRight="@drawable/dropdown_arrow"
+            android:background="@drawable/rect_background"
+            android:padding="5dp"
+            android:layout_height="wrap_content"
+            android:hint="State" />
+
+        <easyadapter.dc.com.library.EasyAutoComplete
+            android:id="@+id/autocompleteCity"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:drawableRight="@drawable/dropdown_arrow"
+            android:background="@drawable/rect_background"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:hint="City" />
+    </LinearLayout>
+
+</layout>

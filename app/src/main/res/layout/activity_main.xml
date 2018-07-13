@@ -29,10 +29,10 @@
 
                 <android.support.v7.widget.SearchView
                     android:id="@+id/searchView"
-                    android:background="@drawable/rect_background"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_width="368dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/rect_background"
                     app:iconifiedByDefault="false"
                     app:queryHint="Search Name"
                     app:searchIcon="@null" />
@@ -40,6 +40,7 @@
                 <easyadapter.dc.com.library.EasySpinner
                     android:id="@+id/spRecyclerView"
                     android:layout_width="wrap_content"
+                    android:visibility="gone"
                     android:layout_height="match_parent"
                     android:background="@drawable/rect_background"
                     android:drawableRight="@drawable/dropdown_arrow"
@@ -48,6 +49,15 @@
                     android:hint="Search Category"
                     android:textColor="@android:color/black"
                     android:textColorHint="@android:color/black" />
+
+                <easyadapter.dc.com.library.EasyAutoComplete
+                    android:id="@+id/autcomplete"
+                    android:layout_width="250dp"
+                    android:paddingLeft="5dp"
+                    android:hint="Search Category"
+                    android:background="@drawable/rect_background"
+                    android:drawableRight="@drawable/dropdown_arrow"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
         </LinearLayout>

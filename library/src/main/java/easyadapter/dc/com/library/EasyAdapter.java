@@ -56,7 +56,7 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
     }
 
     public interface OnFilter<M> {
-        boolean onFilterApply(@NonNull Object filter, @NonNull M model);
+        boolean onFilterApply(@Nullable Object filter, @NonNull M model);
 
         void onFilterResult(ArrayList<M> filteredList);
     }
@@ -173,6 +173,8 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
             onFilter.onFilterResult(result);
         }
     }
+
+
 
     @Override
     public final EasyHolder onCreateViewHolder(ViewGroup parent, int viewType) {

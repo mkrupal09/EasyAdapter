@@ -6,10 +6,13 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
+import android.view.View
 import android.widget.Toast
 import easyadapter.dc.com.easyadapter.databinding.ActivityMainBinding
+import easyadapter.dc.com.easyadapter.databinding.InflaterCategoryNameBinding
 import easyadapter.dc.com.library.EasyAdapter
 import easyadapter.dc.com.library.EasySpinner
+import easyadapter.dc.com.library.EasyArrayAdapter
 
 
 class MainActivity : AppCompatActivity() {
@@ -40,12 +43,13 @@ class MainActivity : AppCompatActivity() {
     private val categories: List<Category>
         get() {
             val list = ArrayList<Category>()
-            list.add(Category.createDummy("Android Developer"))
-            list.add(Category.createDummy("Java Developer"))
-            list.add(Category.createDummy("Python Developer"))
-            list.add(Category.createDummy("Php Developer"))
-            list.add(Category.createDummy("Python Developer"))
-            list.add(Category.createDummy("Php Developer"))
+            list.add(Category.createDummy("Android Developer", "1", "1"))
+            list.add(Category.createDummy("Java Developer", "4", "2"))
+            list.add(Category.createDummy("Python Developer", "1", "3"))
+            list.add(Category.createDummy("Php Developer", "3", "4"))
+            list.add(Category.createDummy("ROR Developer", "2", "5"))
+
+
             return list
         }
 
@@ -57,6 +61,31 @@ class MainActivity : AppCompatActivity() {
 
         adapterExample()
         spinnerExample()
+        autocomplete()
+    }
+
+    private fun autocomplete() {
+
+        val adapter = object : EasyArrayAdapter<Category, InflaterCategoryNameBinding>(this@MainActivity,
+                R.layout.inflater_category_name, object : EasyAdapter.OnFilter<Category> {
+            override fun onFilterResult(filteredList: java.util.ArrayList<Category>?) {
+            }
+
+            override fun onFilterApply(filter: Any?, model: Category): Boolean {
+                return if(filter!=null) model.parentId.equals("1") else false
+            }
+        }) {
+            override fun onBind(binding: InflaterCategoryNameBinding, model: Category) {
+                binding.tvName.text = model.name
+            }
+        }
+        adapter.addAll(categories, true)
+        binding.autcomplete.setItemSelectionCallback { position: Int, view: View ->
+            binding.autcomplete.setText(adapter.data[position].name)
+        }
+
+        binding.autcomplete.setAdapter(adapter)
+
     }
 
     private fun adapterExample() {
@@ -122,10 +151,14 @@ class MainActivity : AppCompatActivity() {
         binding.spRecyclerView.enableAutoCompleteMode { easySpinner, text ->
             spinnerAdapter.performFilter(text, spinnerFilter)
         }
+        binding.spRecyclerView.setOnDropDownVisibilityListener {
+            /* if(it)
+             binding.spRecyclerView.setText("")*/
+        }
     }
 
     val filter = object : EasyAdapter.OnFilter<Category> {
-        override fun onFilterApply(filter: Any, model: Category): Boolean {
+        override fun onFilterApply(filter: Any?, model: Category): Boolean {
             return model.name.toLowerCase().contains(filter.toString().toLowerCase())
         }
 
@@ -137,7 +170,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val spinnerFilter = object : EasyAdapter.OnFilter<Category> {
-        override fun onFilterApply(filter: Any, model: Category): Boolean {
+        override fun onFilterApply(filter: Any?, model: Category): Boolean {
             return model.name.toLowerCase().contains(filter.toString().toLowerCase())
         }
 

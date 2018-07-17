@@ -429,6 +429,7 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
             swipeView = v;
             startViewSize = 0;
             endViewSize = 0;
+            setEnableSwipeToDelete(v,0,0);
         }
     }
 

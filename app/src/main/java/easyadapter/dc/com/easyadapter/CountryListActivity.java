@@ -52,7 +52,7 @@ public class CountryListActivity extends AppCompatActivity {
         binding.autocompleteCountry.setAdapter(countryAdapter = new EasyArrayAdapter<Region, InflaterCategoryNameBinding>(this, R.layout.inflater_category_name, new EasyAdapter.OnFilter<Region>() {
             @Override
             public boolean onFilterApply(@Nullable Object filter, @NonNull Region model) {
-                return true;s
+                return true;
             }
 
             @Override

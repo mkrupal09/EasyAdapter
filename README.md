@@ -66,6 +66,7 @@ adapter = new EasyAdapter<Category, InflaterCategoryBinding>(R.layout.inflater_c
                 binding.tvName.setText(model.name);
             }
         }
+        
 ```
 
 ## Usage
@@ -80,6 +81,17 @@ class CategoryAdapter() :EasyAdapter<Category, InflaterCategoryBinding>(R.layout
         }
     }
 }
+```
+###java 
+``` java
+     public CategoryAdapter() {
+        super(R.layout.inflater_category);
+    }
+
+    @Override
+    public void onBind(@NonNull InflaterCategoryBinding binding, @NonNull Category model) {
+        binding.tvName.setText(model.name);
+    }
 ```
 
 #### 1) To Handle recycler View item Events 

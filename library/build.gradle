@@ -3,14 +3,14 @@ apply plugin: 'com.android.library'
 ext {
     PUBLISH_GROUP_ID = 'com.dc.easyadapter'
     PUBLISH_ARTIFACT_ID = 'easyadapter'
-    PUBLISH_VERSION = '2.0.3'
+    PUBLISH_VERSION = '2.0.5'
 }
 
 android {
     compileSdkVersion 27
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 15
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"

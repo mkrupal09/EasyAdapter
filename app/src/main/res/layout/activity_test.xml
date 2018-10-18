@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible"
+                        tools:listitem="@layout/inflater_category" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_margin="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                    <View
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"
+                        android:background="@drawable/gradient_drawable" />
+
+                    <com.warkiz.widget.IndicatorSeekBar
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:isb_indicator_color="@color/colorPrimary"
+                        app:isb_indicator_text_color="@color/colorAccent"
+                        app:isb_indicator_text_size="18sp"
+                        app:isb_max="5"
+                        app:isb_min="0.30"
+                        app:isb_progress_value_float="true"
+                        app:isb_seek_smoothly="false"
+                        app:isb_show_indicator="rounded_rectangle"
+                        app:isb_show_tick_texts="true"
+                        app:isb_thumb_color="@color/colorPrimary"
+                        app:isb_thumb_size="20dp"
+                        app:isb_tick_texts_color="@color/colorPrimary"
+                        app:isb_tick_texts_size="0sp"
+                        app:isb_ticks_count="16"
+                        app:isb_track_background_color="@android:color/transparent"
+                        app:isb_track_background_size="4dp"
+                        app:isb_track_progress_color="@android:color/transparent"
+                        app:isb_track_progress_size="4dp" />
+                </FrameLayout>
+            </LinearLayout>
+        </FrameLayout>
+
+    </RelativeLayout>
+
+
+</layout>

@@ -6,13 +6,16 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
+import android.util.Log
 import android.view.View
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.Toast
 import easyadapter.dc.com.easyadapter.databinding.ActivityMainBinding
 import easyadapter.dc.com.easyadapter.databinding.InflaterCategoryNameBinding
 import easyadapter.dc.com.library.EasyAdapter
-import easyadapter.dc.com.library.EasySpinner
 import easyadapter.dc.com.library.EasyArrayAdapter
+import easyadapter.dc.com.library.EasySpinner
 
 
 class MainActivity : AppCompatActivity() {
@@ -56,12 +59,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        Log.d("MainActivityLog", "true");
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.recyclerView.isNestedScrollingEnabled = false
 
         adapterExample()
         spinnerExample()
         autocomplete()
+
     }
 
     private fun autocomplete() {
@@ -72,7 +77,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFilterApply(filter: Any?, model: Category): Boolean {
-                return if(filter!=null) model.parentId.equals("1") else false
+                return if (filter != null) model.parentId.equals("1") else false
             }
         }) {
             override fun onBind(binding: InflaterCategoryNameBinding, model: Category) {

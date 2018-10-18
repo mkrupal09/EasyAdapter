@@ -104,12 +104,6 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
         }
     }
 
-    public void remove(M model) {
-        data.remove(model);
-        temp.remove(model);
-        notifyDataSetChanged();
-    }
-
 
     private void clearFilter() {
         data.clear();
@@ -122,12 +116,34 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
         notifyDataSetChanged();
     }
 
+    public int addOnly(M model) {
+        data.add(model);
+        temp.add(model);
+        return data.size() - 1;
+        /*notifyDataSetChanged();*/
+    }
+
+
+    @Deprecated
+    public void remove(M model) {
+        data.remove(model);
+        temp.remove(model);
+        notifyDataSetChanged();
+    }
+
+    public void removeOnly(int pos) {
+        M model = data.get(pos);
+        data.remove(model);
+        temp.remove(model);
+        notifyDataSetChanged();
+    }
+
     public void addAll(List<M> addAll, boolean deepCopy) {
         data.addAll(addAll);
         if (deepCopy) {
             temp.addAll(addAll);
         }
-        notifyDataSetChanged();
+        /*notifyDataSetChanged();*/
     }
 
     public EasyAdapter<M, B> setRecyclerViewItemClick(OnRecyclerViewItemClick<M> recyclerViewItemClick) {
@@ -173,7 +189,6 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
             onFilter.onFilterResult(result);
         }
     }
-
 
 
     @Override
@@ -429,7 +444,7 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
             swipeView = v;
             startViewSize = 0;
             endViewSize = 0;
-            setEnableSwipeToDelete(v,0,0);
+            setEnableSwipeToDelete(v, 0, 0);
         }
     }
 

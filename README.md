@@ -302,6 +302,10 @@ without this person cannot achieve swipe action in recyclerview
 https://android.jlelse.eu/android-tools-attributes-listitem-sample-data-rocks-bbf49aaa9f07 <br />
 for sharing knowledge of Android Tools attributes 
 
+* Buy me a Beer. :beer: 
+   
+   <a href="https://www.paypal.me/mkrupal09" target="_blank"><img src="https://www.paypalobjects.com/webstatic/i/logo/rebrand/ppcom.svg" width="100" height="40" style="margin-bottom:-15px;"></a> 
+
 License
 =======
 

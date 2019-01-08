@@ -1,8 +1,13 @@
 package easyadapter.dc.com.easyadapter
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
+import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
@@ -27,6 +32,32 @@ class MainActivity : AppCompatActivity() {
     private val names: List<Category>
         get() {
             val temp = ArrayList<Category>()
+            temp.add(Category.createDummy("Krupal Mehta"))
+            temp.add(Category.createDummy("Aagam Mehta"))
+            temp.add(Category.createDummy("Anand Patel"))
+            temp.add(Category.createDummy("Sagar Panchal"))
+            temp.add(Category.createDummy("Pankaj Sharma"))
+            temp.add(Category.createDummy("Darshak jani"))
+            temp.add(Category.createDummy("Sanket Chauhan"))
+            temp.add(Category.createDummy("Dhruv"))
+            temp.add(Category.createDummy("Sagar Panchal"))
+            temp.add(Category.createDummy("Pankaj Sharma"))
+            temp.add(Category.createDummy("Darshak jani"))
+            temp.add(Category.createDummy("Sanket Chauhan"))
+            temp.add(Category.createDummy("Dhruv"))
+            temp.add(Category.createDummy("Krupal Mehta"))
+            temp.add(Category.createDummy("Aagam Mehta"))
+            temp.add(Category.createDummy("Anand Patel"))
+            temp.add(Category.createDummy("Sagar Panchal"))
+            temp.add(Category.createDummy("Pankaj Sharma"))
+            temp.add(Category.createDummy("Darshak jani"))
+            temp.add(Category.createDummy("Sanket Chauhan"))
+            temp.add(Category.createDummy("Dhruv"))
+            temp.add(Category.createDummy("Sagar Panchal"))
+            temp.add(Category.createDummy("Pankaj Sharma"))
+            temp.add(Category.createDummy("Darshak jani"))
+            temp.add(Category.createDummy("Sanket Chauhan"))
+            temp.add(Category.createDummy("Dhruv"))
             temp.add(Category.createDummy("Krupal Mehta"))
             temp.add(Category.createDummy("Aagam Mehta"))
             temp.add(Category.createDummy("Anand Patel"))
@@ -66,6 +97,7 @@ class MainActivity : AppCompatActivity() {
         adapterExample()
         spinnerExample()
         autocomplete()
+        test()
 
     }
 
@@ -184,6 +216,19 @@ class MainActivity : AppCompatActivity() {
             spinnerAdapter.addAll(filteredList, false)
             spinnerAdapter.notifyDataSetChanged()
         }
+    }
+
+    private fun test() {
+        val intentFilter = IntentFilter()
+        intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED)
+        intentFilter.addAction(Intent.ACTION_PACKAGE_INSTALL)
+        intentFilter.addDataScheme("package")
+        LocalBroadcastManager.getInstance(this).registerReceiver(object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                Log.d("App Installed", "true")
+            }
+        }, intentFilter)
+
     }
 }
 

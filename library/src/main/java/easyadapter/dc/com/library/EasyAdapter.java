@@ -85,6 +85,9 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
 
   public abstract void onBind(@NonNull B binding, @NonNull M model);
 
+  public void onBind(@NonNull B binding, @NonNull M model, EasyHolder holder) {
+  }
+
   public void onBind(@NonNull B binding, @NonNull M model, @NonNull List<Object> payloads) {
   }
 
@@ -228,6 +231,7 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
   public final void onBindViewHolder(@NonNull EasyHolder holder, int position) {
     if (!holder.isLoadingView) {
       onBind((B) holder.binding, data.get(position));
+      onBind((B) holder.binding, data.get(position), holder);
     }
   }
 

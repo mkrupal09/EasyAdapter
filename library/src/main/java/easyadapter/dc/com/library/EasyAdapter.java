@@ -526,4 +526,9 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
     }
   };
 
+  public void invalidateObserver()
+  {
+    onDataUpdate();
+  }
+
 }

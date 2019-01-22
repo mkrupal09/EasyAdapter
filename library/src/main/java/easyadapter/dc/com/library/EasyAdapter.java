@@ -449,6 +449,18 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
     public void notifyEndOpen() {
 
     }
+
+    public final void setOnClickListeners(View... views) {
+      for (View view : views) {
+        view.setOnClickListener(getClickListener());
+      }
+    }
+
+    public final void setOnCheckChangeListeners(CompoundButton... compoundButtons) {
+      for (CompoundButton view : compoundButtons) {
+        view.setOnCheckedChangeListener(getCheckedChangeListener());
+      }
+    }
   }
 
   private class ProgressViewHolder extends EasyHolder {
@@ -526,17 +538,6 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
     }
   };
 
-  public final void setOnClickListeners(EasyHolder holder, View... views) {
-    for (View view : views) {
-      view.setOnClickListener(holder.getClickListener());
-    }
-  }
-
-  public final void setOnCheckChangeListeners(EasyHolder holder, CompoundButton... compoundButtons) {
-    for (CompoundButton view : compoundButtons) {
-      view.setOnCheckedChangeListener(holder.getCheckedChangeListener());
-    }
-  }
 
   public void invalidateObserver() {
     onDataUpdate();

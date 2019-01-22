@@ -526,8 +526,19 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
     }
   };
 
-  public void invalidateObserver()
-  {
+  public void setOnClickListeners(EasyHolder holder, View... views) {
+    for (View view : views) {
+      view.setOnClickListener(holder.getClickListener());
+    }
+  }
+
+  public void setOnCheckChangeListeners(EasyHolder holder, CompoundButton... compoundButtons) {
+    for (CompoundButton view : compoundButtons) {
+      view.setOnCheckedChangeListener(holder.getCheckedChangeListener());
+    }
+  }
+
+  public void invalidateObserver() {
     onDataUpdate();
   }
 

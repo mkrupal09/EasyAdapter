@@ -21,10 +21,13 @@ class CategoryAdapter(val enableSwipToDelete: Boolean) :
             }
         }
 
-
     }
 
     override fun onBind(binding: InflaterCategoryBinding, model: Category) {
+    }
+
+    override fun onBind(binding: InflaterCategoryBinding, model: Category, holder: EasyHolder?) {
+        super.onBind(binding, model, holder)
         binding.apply {
             tvName.text = model.name
             tvName.isSelected = model.isSelected
@@ -41,5 +44,6 @@ class CategoryAdapter(val enableSwipToDelete: Boolean) :
         }
 
         Glide.with(binding.ivCategoryIcon).load("https://www.healthywage.com/wp-content/uploads/2015/11/Kristin-W-BeforeAfter2-540x345.jpg").into(binding.ivCategoryIcon);
+        helper.startSwipe(holder)
     }
 }

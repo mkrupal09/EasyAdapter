@@ -134,11 +134,15 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
     notifyDataSetChanged();
   }
 
+  public void removeOnly(M model) {
+    data.remove(model);
+    temp.remove(model);
+  }
+
   public void removeOnly(int pos) {
     M model = data.get(pos);
     data.remove(model);
     temp.remove(model);
-    notifyDataSetChanged();
   }
 
   public void addAll(List<M> addAll, boolean deepCopy) {
@@ -474,9 +478,12 @@ public abstract class EasyAdapter<M, B extends ViewDataBinding> extends Recycler
     }
   }
 
+  public SwipeOpenItemTouchHelper helper = new SwipeOpenItemTouchHelper(new SwipeOpenItemTouchHelper.SimpleCallback(
+          SwipeOpenItemTouchHelper.START | SwipeOpenItemTouchHelper.END));
+
   public void enableSwipeAction(RecyclerView recyclerView) {
-    SwipeOpenItemTouchHelper helper = new SwipeOpenItemTouchHelper(new SwipeOpenItemTouchHelper.SimpleCallback(
-            SwipeOpenItemTouchHelper.START | SwipeOpenItemTouchHelper.END));
+
+
     helper.attachToRecyclerView(recyclerView);
   }
 

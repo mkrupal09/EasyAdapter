@@ -1,6 +1,6 @@
 # EasyAdapter Based on [**Android Data Binding**](https://developer.android.com/topic/libraries/data-binding/index.html)
 
-![](images/logo.png)
+![](images/easyadapter-01.png)
 
 ### Create your recyclerview adapter in just 3 lines.
 

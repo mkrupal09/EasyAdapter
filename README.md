@@ -1,4 +1,7 @@
 # EasyAdapter Based on [**Android Data Binding**](https://developer.android.com/topic/libraries/data-binding/index.html)
+
+![](images/logo.png)
+
 ### Create your recyclerview adapter in just 3 lines.
 
 > RecyclerView is mostly used android widgets in the Android Project, for that you have to implement an Adapter which provides the items for the view. In most cases it require the same base logic, but require you to write everything again and again.so here is sollution for it.

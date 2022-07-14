@@ -24,25 +24,28 @@ Download
 --------
 
 app > build.gradle
+```groovy
 implementation 'com.github.mkrupal09:EasyAdapter:v2.0.5'
+```
 
 root > build.gradle, add jitpack.io maven url in allprojects>repositories
-
+```groovy
 allprojects {
 		repositories {
 			...
 			maven { url 'https://jitpack.io' }
 		}
 	}
+```
 
 To enable data binding
 -------------------------
 
-inside app build.gradle
+inside app build.gradle add buildFeatures block(if not) and add dataBinding flag as mentioned below
 ```groovy
 android {
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding true
     }
 }
 ```

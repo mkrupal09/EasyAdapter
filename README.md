@@ -1,10 +1,15 @@
 # EasyAdapter Based on [**Android Data Binding**](https://developer.android.com/topic/libraries/data-binding/index.html)
+
+![](images/easyadapter-01.png)
+
 ### Create your recyclerview adapter in just 3 lines.
 
 > RecyclerView is mostly used android widgets in the Android Project, for that you have to implement an Adapter which provides the items for the view. In most cases it require the same base logic, but require you to write everything again and again.so here is sollution for it.
 
 [![N|Solid](https://img.shields.io/badge/Android%20Arsenal-EasyAdapter-brightgreen.svg)](https://android-arsenal.com/details/1/6950)
 [![Download](https://api.bintray.com/packages/mkrupal09/EasyAdapter/EasyAdapter/images/download.svg) ](https://bintray.com/mkrupal09/EasyAdapter/EasyAdapter/_latestVersion)
+[![Circle
+CI](https://circleci.com/gh/mkrupal09/EasyAdapter.svg?style=svg)](https://circleci.com/gh/mkrupal09/EasyAdapter)
 
 - Reduce Boilerplate code to create adapter and holder.
 - you can filter adapter without coding much.
@@ -18,43 +23,32 @@
 Download
 --------
 
-Grab via Maven:
-```xml
-<dependency>
-  <groupId>com.dc.easyadapter</groupId>
-  <artifactId>easyadapter</artifactId>
-  <version>2.0.3</version>
-  <type>pom</type>
-</dependency>
-```
-or Gradle:
+app > build.gradle
 ```groovy
-implementation 'com.dc.easyadapter:easyadapter:2.0.3'
+implementation 'com.github.mkrupal09:EasyAdapter:v2.0.5'
+```
+
+root > build.gradle, add jitpack.io maven url in allprojects>repositories
+```groovy
+allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
 ```
 
 To enable data binding
 -------------------------
 
-inside app build.gradle
+inside app build.gradle add buildFeatures block(if not) and add dataBinding flag as mentioned below
 ```groovy
 android {
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding true
     }
 }
 ```
-
-For Kotlin also add
- ```groovy
- dependencies{
-        kapt 'com.android.databinding:compiler:3.1.2'
-}
-
-apply plugin: 'kotlin-kapt' //Top at build.gradle
-```
-
-
-
 
 ## How?
 ``` java 
@@ -64,6 +58,7 @@ adapter = new EasyAdapter<Category, InflaterCategoryBinding>(R.layout.inflater_c
                 binding.tvName.setText(model.name);
             }
         }
+        
 ```
 
 ## Usage
@@ -78,6 +73,17 @@ class CategoryAdapter() :EasyAdapter<Category, InflaterCategoryBinding>(R.layout
         }
     }
 }
+```
+###java 
+``` java
+     public CategoryAdapter() {
+        super(R.layout.inflater_category);
+    }
+
+    @Override
+    public void onBind(@NonNull InflaterCategoryBinding binding, @NonNull Category model) {
+        binding.tvName.setText(model.name);
+    }
 ```
 
 #### 1) To Handle recycler View item Events 
@@ -287,6 +293,10 @@ without this person cannot achieve swipe action in recyclerview
 
 https://android.jlelse.eu/android-tools-attributes-listitem-sample-data-rocks-bbf49aaa9f07 <br />
 for sharing knowledge of Android Tools attributes 
+
+* Buy me a Beer. :beer: 
+   
+   <a href="https://www.paypal.me/mkrupal09" target="_blank"><img src="https://www.paypalobjects.com/webstatic/i/logo/rebrand/ppcom.svg" width="100" height="40" style="margin-bottom:-15px;"></a> 
 
 License
 =======

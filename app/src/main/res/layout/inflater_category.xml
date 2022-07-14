@@ -32,7 +32,7 @@
 
             <ImageView
                 android:id="@+id/ivCategoryIcon"
-                android:layout_width="30dp"
+                android:layout_width="100dp"
                 android:layout_height="30dp"
                 tools:src="@tools:sample/avatars" />
 
@@ -48,6 +48,8 @@
 
             <CheckBox
                 android:id="@+id/cbCategory"
+                tools:text="@null"
+                android:text="@null"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>

@@ -23,19 +23,17 @@ CI](https://circleci.com/gh/mkrupal09/EasyAdapter.svg?style=svg)](https://circle
 Download
 --------
 
-Grab via Maven:
-```xml
-<dependency>
-  <groupId>com.dc.easyadapter</groupId>
-  <artifactId>easyadapter</artifactId>
-  <version>2.0.3</version>
-  <type>pom</type>
-</dependency>
-```
-or Gradle:
-```groovy
-implementation 'com.dc.easyadapter:easyadapter:2.0.3'
-```
+app > build.gradle
+implementation 'com.github.mkrupal09:EasyAdapter:v2.0.5'
+
+root > build.gradle, add jitpack.io maven url in allprojects>repositories
+
+allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
 
 To enable data binding
 -------------------------
@@ -48,18 +46,6 @@ android {
     }
 }
 ```
-
-For Kotlin also add
- ```groovy
- dependencies{
-        kapt 'com.android.databinding:compiler:3.1.2'
-}
-
-apply plugin: 'kotlin-kapt' //Top at build.gradle
-```
-
-
-
 
 ## How?
 ``` java 
